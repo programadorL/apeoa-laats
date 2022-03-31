@@ -2,18 +2,28 @@
 
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Apoea - Laats</title>
-  <link rel="stylesheet" type="text/css" href="./static/css/main.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Apoea - Laats</title>
+    <link rel="stylesheet" type="text/css" href="./static/css/main.css">
 </head>
 <body>
     <div class="login-page" alt="logo">
         <div class="form">
+            <form class="reset-pin-form">
+                <img class="logo" src="./static/img/logolaats.png">
+                <input type="text" id="username" placeholder="Usuario"/>
+                <input type="password" id="old-password" placeholder="Antiguo PIN"/>
+                <input type="password" id="new-password1" placeholder="Nuevo PIN"/>
+                <input type="password" id="new-password2" placeholder="Confirmaci&oacute;n nuevo PIN"/>
+                <button id="reset-pin-button">Re-establecer PIN</button>
+                <p class="message">¿Desea regresar? <a href="#">Iniciar sesi&oacute;n</a></p>
+            </form>
             <form class="login-form">
                 <img class="logo" src="./static/img/logolaats.png">
                 <input type="text" id="username" placeholder="Usuario"/>
                 <input type="password" id="password" placeholder="PIN"/>
-                <button id="submit" >Entrar</button>
+                <button id="log-in-button" >Entrar</button>
+                <p class="message">¿Olvidaste tu PIN? <a href="#">Re-establecer PIN</a></p>
             </form>
         </div>
     </div>
