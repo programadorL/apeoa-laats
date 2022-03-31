@@ -1,6 +1,9 @@
 from flask import Flask, render_template
+import os
 
-app = Flask(__name__)
+directory_path = os.getcwd()
+
+app = Flask(__name__) #static_folder = directory_path)
 
 @app.route('/')
 def index():
