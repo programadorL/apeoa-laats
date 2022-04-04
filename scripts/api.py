@@ -1,6 +1,6 @@
-from query_builder import *
+from scripts.query_builder import *
 import pyodbc
-from env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME
+from scripts.env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME
 
 def user_auth(email, password):
     try: 
