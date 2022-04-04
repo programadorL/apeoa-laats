@@ -1,7 +1,7 @@
 from env import *
 import pyodbc
 from env import DATABASE, DRIVER, PASSWORD, SERVER, USERNAME
-
+#test comment
 def user_auth(email, password):
     try: 
         with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT=1433;DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:

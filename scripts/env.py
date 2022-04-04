@@ -1,0 +1,5 @@
+SERVER = 'mysqllaats.database.windows.net'
+DATABASE = 'aatl'
+USERNAME = 'AdminLaats'
+PASSWORD = 'Fn_1_5Laats' 
+DRIVER = '{ODBC Driver 17 for SQL Server}'
