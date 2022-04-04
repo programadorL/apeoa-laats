@@ -20,6 +20,7 @@ def get_flights(day, month, operator, departamento):
             with conn.cursor() as cursor:
                 cursor.execute(get_flights_query(day, month, operator, departamento))
                 result = cursor.fetchall()
+                return result
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
         return False
