@@ -1,165 +1,47 @@
-.dashboard-page {
-    width: 100%;
-    padding: 2% 0 0;
-    margin: auto;
-  }
-  
+table {
+  position: relative;
+  margin: 0 auto 50px;
+}
+
+tr, td {
+  border: 1px solid;
+  width: 650px;
+  padding: 10px;
+  border: 0;
+}
+
 .flights-panel {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 500px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-
-  .flights-panel input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-
-  .flights-panel button:hover,.flights-panel button:active,.flights-panel button:focus {
-    background: #c5c4c4;
-  }
-
-  .flights-panel .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 14px;
-  }
-  .flights-panel .message a {
-    color: #00126B;
-    text-decoration: none;
-  }
-
-  .flights-panel .reset-pin-dash.flights-panel {
-    display: none;
-  }
-
-  .personel-panel {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 500px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-
-  .personel-panel input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-
-  .personel-panel button:hover,.personel-panel button:active,.personel-panel button:focus {
-    background: #c5c4c4;
-  }
-
-  .personel-panel .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 14px;
-  }
-  .personel-panel .message a {
-    color: #00126B;
-    text-decoration: none;
-  }
-
-  .personel-panel .reset-pin-dash.personel-panel {
-    display: none;
-  }
-
-  .charts-panel {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 1000px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-
-  .charts-panel input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-
-  .charts-panel button:hover,.charts-panel button:active,.charts-panel button:focus {
-    background: #c5c4c4;
-  }
-
-  .charts-panel .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 14px;
-  }
-  .charts-panel .message a {
-    color: #00126B;
-    text-decoration: none;
-  }
-
-  .charts-panel .reset-pin-dash.charts-panel {
-    display: none;
-  }
-
-.container {
   position: relative;
   z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 10px;
+  padding: 200px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-  .container:before, .container:after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-  .container .info {
-    margin: 50px auto;
-    text-align: center;
-  }
-  .container .info h1 {
-    margin: 0 0 15px;
-    padding: 0;
-    font-size: 36px;
-    font-weight: 300;
-    color: #1a1a1a;
-  }
-  .container .info span {
-    color: #4d4d4d;
-    font-size: 12px;
-  }
-  .container .info span a {
-    color: #000000;
-    text-decoration: none;
-  }
-  .container .info span .fa {
-    color: #EF3B3A;
-  }
+
+.personel-panel {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 10px;
+  padding: 200px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.charts-panel {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 1000px;
+
+  padding: 200px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 
 body {
   background: #c5c4c4;/* fallback for old browsers */
