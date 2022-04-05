@@ -13,29 +13,31 @@ tr, td {
 .flights-panel {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #333533;
   max-width: 360px;
   margin: 0 auto 10px;
   padding: 200px;
   text-align: center;
+  border-radius: 15px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .personel-panel {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #333533;
   max-width: 360px;
   margin: 0 auto 10px;
   padding: 200px;
   text-align: center;
+  border-radius: 15px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .charts-panel {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #333533;
   max-width: 1000px;
 
   padding: 200px;
@@ -44,9 +46,8 @@ tr, td {
 }
 
 body {
-  background: #c5c4c4;/* fallback for old browsers */
-  background: rgb(197, 196, 196);
-  background: linear-gradient(90deg, rgb(197, 196, 196) 0%, rgb(179, 179, 179) 50%);
+  background: #242423;/* fallback for old browsers  #242423*/
+  background: rgb(36, 36, 35);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      

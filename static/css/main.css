@@ -7,7 +7,7 @@
 .form {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: #333533;
     max-width: 360px;
     margin: 0 auto 100px;
     padding: 45px;
@@ -99,9 +99,8 @@
   }
 
 body {
-  background: #c5c4c4;/* fallback for old browsers */
-  background: rgb(197, 196, 196);
-  background: linear-gradient(90deg, rgb(197, 196, 196) 0%, rgb(179, 179, 179) 50%);
+  background: #242423;/* fallback for old browsers  #242423*/
+  background: rgb(36, 36, 35);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
