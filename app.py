@@ -13,6 +13,8 @@ def login():
         email = request.form["email"]
         pin = request.form["password"]
         auth = user_auth(email, pin)
+        if auth:
+            return render_template('dashboard.html')
     return str(auth)
         
 
