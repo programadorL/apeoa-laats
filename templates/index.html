@@ -9,20 +9,20 @@
 <body>
     <div class="login-page" alt="logo">
         <div class="form">
-            <form class="reset-pin-form" id="reset-pin-form">
+            <form class="reset-pin-form" id="reset-pin-form" method="POST">
                 <img class="logo" src="./static/img/logolaats.png">
                 <input type="text" name="email" placeholder="Correo"/>
                 <input type="password" name="old-password" placeholder="Antiguo PIN" maxlength="4"/>
-                <input type="password" name="new-password1" placeholder="Nuevo PIN"  maxlength="4"/>
+                <input type="password" name="new-password" placeholder="Nuevo PIN"  maxlength="4"/>
                 <input type="password" name="new-password2" placeholder="Confirmaci&oacute;n nuevo PIN" maxlength="4"/>
-                <button id="reset-pin-button">Re-establecer PIN</button>
+                <button name="submit" value="reset">Re-establecer PIN</button>
                 <p class="message">¿Desea regresar? <a href="#" onclick="toggle_reset_pin_form()">Iniciar sesi&oacute;n</a></p>
             </form>
             <form class="login-form" id="login-form" method="POST">
                 <img class="logo" src="./static/img/logolaats.png">
                 <input type="text" name="email" placeholder="Correo"/>
                 <input type="password" name="password" placeholder="PIN" maxlength="4"/>
-                <button id="log-in-button">Entrar</button>
+                <button name="submit" value="login">Entrar</button>
                 <p class="message">¿Olvidaste tu PIN? <a href="#" onclick="toggle_login_form()">Re-establecer PIN</a></p>
             </form>
         </div>
