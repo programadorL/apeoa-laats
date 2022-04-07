@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from scripts.api import *
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def login():
             pin = request.form["password"]
             auth = user_auth(email, pin)
             if auth:
-                return render_template('dashboard.html')
+                return redirect(url_for('dashboard'))
             else:
                 return str(auth)
         elif form == "reset":
@@ -30,5 +30,10 @@ def login():
             else:
                 return str(reset)
     return False
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
