@@ -1,6 +1,6 @@
 from scripts.query_builder import *
 import pyodbc
-from scripts.env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME
+from scripts.env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME, USER_ID, DEPARTMENT
 
 def user_auth(email, password):
     try: 
@@ -9,6 +9,9 @@ def user_auth(email, password):
                 cursor.execute(get_user_auth_query(email, password))
                 result = cursor.fetchall()
                 if (email == result[0][0] and password == result[0][1]):
+                    USER_ID = result[0][2]
+                    DEPARTMENT = get_department(USER_ID)
+                    print(DEPARTMENT)
                     return True
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
@@ -37,6 +40,17 @@ def get_flights(day, month, operator, departament):
                 cursor.execute(get_flights_query(day, month, operator, departament))
                 result = cursor.fetchall()
                 return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_department(user_id):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_department_query(user_id))
+                result = cursor.fetchall()
+                return result[0][0]
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
         return False
