@@ -11,7 +11,6 @@ def user_auth(email, password):
                 if (email == result[0][0] and password == result[0][1]):
                     USER_ID = result[0][2]
                     DEPARTMENT = get_department(USER_ID)
-                    print(DEPARTMENT)
                     return True
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
