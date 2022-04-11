@@ -1,0 +1,31 @@
+.parameters-page {
+    width: 1280px;
+    height: 660px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.edit-panel {
+    position: relative;
+    z-index: 1;
+    background: #333533;
+    max-width: 1280px;
+    height: 660px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+ }
+
+th, tr, td{
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+body {
+    background: #242423;/* fallback for old browsers  #242423*/
+    background: rgb(36, 36, 35);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;      
+  }
