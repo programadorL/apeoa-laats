@@ -9,16 +9,10 @@
 <body>
     <div class="parameters-page">
         <div class="edit-panel">
-            <table>
-                <tr>
-                    <th>Posicion</th>
-                    <th>Cantidad</th>
-                    <th>Hora inicio</th>
-                    <th>Hora final</th>
-                </tr>
+            <table class="edit-table">
                 <tr>
                     <td>
-                        <select>
+                        <select class="position-selector">
                             <option value="">option1</option>
                             <option value="">option2</option>
                             <option value="">option3</option>
@@ -26,15 +20,15 @@
                         </select>
                     </td>
                     <td>
-                        <input type="number" step="1" value="0">
+                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
                     </td>
                     <td>
-                        <input type="time">
+                        <input class="time-selector" type="time">
                     </td>
                     <td>
-                        <input type="time">
+                        <input class="time-selector" type="time">
                     </td>
-                </tr>
+                </tr>                
             </table>
         </div>
     </div>
