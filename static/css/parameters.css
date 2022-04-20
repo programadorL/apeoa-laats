@@ -1,10 +1,38 @@
 .parameters-page {
     width: 1280px;
-    padding: 8% 0 0;
+    padding: 2% 0 0;
     margin: auto;
 }
 
-.edit-panel {
+.filter-section {
+  position: sticky;
+  z-index: 1;
+  background: #333533;
+  max-width: 1280px;
+  height: 50px;
+  margin: 0 auto 20px;
+  padding: 45px;
+  text-align: center;
+  overflow: auto;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+}
+
+.filter-section input, select {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  outline: 0;
+  color: #9d9b9b;
+  background: #2d2c2c; /*#333533*/
+  width: 250px;
+  border: 0;
+  margin: 15px 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+.edit-panel{
     position: relative;
     z-index: 1;
     background: #333533;
@@ -23,11 +51,11 @@ table {
     border-radius: 2px;
  }
 
- table, input, select {
+ .edit-table input, .position-selector {
     font-family: "Roboto", sans-serif;
     text-align: center;
     outline: 0;
-    color: #5f5d5d;
+    color: #9d9b9b;
     background: #2d2c2c; /*#333533*/
     width: 100%;
     border: 0;
@@ -35,7 +63,6 @@ table {
     padding: 15px;
     box-sizing: border-box;
     font-size: 18px;
-   
  }
 
 .edit-table tr:nth-child(even){
@@ -43,7 +70,7 @@ table {
 }
 
 th, td{
-    color: #5f5d5d;
+    color: #9d9b9b;
     margin: 0;
 }
 
