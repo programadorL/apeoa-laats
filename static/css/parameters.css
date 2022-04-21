@@ -11,7 +11,7 @@
   max-width: 1280px;
   height: 50px;
   margin: 0 auto 20px;
-  padding: 45px;
+  padding: 30px;
   text-align: center;
   overflow: auto;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -26,8 +26,7 @@
   background: #2d2c2c; /*#333533*/
   width: 250px;
   border: 0;
-  margin: 15px 0 15px;
-  padding: 15px;
+  padding: 10px;
   box-sizing: border-box;
   font-size: 18px;
 }
@@ -38,7 +37,7 @@
     background: #333533;
     max-width: 1280px;
     height: 480px;
-    margin: 0 auto 100px;
+    margin: 0 auto 10px;
     padding: 45px;
     text-align: center;
     overflow: auto;
@@ -65,8 +64,12 @@ table {
     font-size: 18px;
  }
 
+ .position-selector {
+   height: 55px;
+ }
+
 .edit-table tr:nth-child(even){
-    background-color: #262525;
+    background-color: #383737;
 }
 
 th, td{

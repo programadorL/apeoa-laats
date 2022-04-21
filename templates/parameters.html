@@ -4,23 +4,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Apoea - Laats</title>
     <link rel="stylesheet" type="text/css" href="./static/css/parameters.css">
+    <link href='https://css.gg/add.css' rel='stylesheet'>
+    <link href='https://css.gg/pen.css' rel='stylesheet'>
     <script src="./static/js/ui-handler.js"></script>
 </head>
 <body>
     <div class="parameters-page">
         <div class="filter-section">
+            <i class="gg-pen"></i>
             <input class="date-selector" type="date">
             <select class="operator-selector" placeholder="Operador">
+                <option value="" disabled selected hidden>Operador</option>
                 <option value="">Aeromar</option>
                 <option value="">Aeromexico</option>
                 <option value="">American</option>
                 <option value="">Jet Blue</option>
             </select>
             <select class="flight-selector" placeholder="Vuelo">
-                <option value="">Esperando...</option>
+                <option value="" disabled selected hidden>Vuelo</option>
             </select>
             <select class="aircraft-selector" placeholder="Aeronave">
-                <option value="">Esperando...</option>
+                <option value="" disabled selected hidden>Aeronave</option>
             </select>
         </div>
         <div class="edit-panel">
@@ -31,13 +35,11 @@
                     <th>Hora inicio</th>
                     <th>Hora final</th>
                 </tr>
+                {%for i in range(0,8)%}
                 <tr>
                     <td>
                         <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
+                            <option value="" disabled selected hidden>Seleccione...</option>
                         </select>
                     </td>
                     <td>
@@ -49,160 +51,10 @@
                     <td>
                         <input class="time-selector" type="time">
                     </td>
-                </tr>   
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>  
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>   
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>   
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>  
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>  
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>   
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>  
-                <tr>
-                    <td>
-                        <select class="position-selector">
-                            <option value="">option1</option>
-                            <option value="">option2</option>
-                            <option value="">option3</option>
-                            <option value="">option3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                    <td>
-                        <input class="time-selector" type="time">
-                    </td>
-                </tr>              
+                </tr>     
+                {%endfor%}                
             </table>
+            <a ref="#">Nueva posiicion</a>
         </div>
     </div>
 </body>
