@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from scripts.api import *
+from scripts.env import DEPARTMENT
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ def login():
             pin = request.form["password"]
             auth = user_auth(email, pin)
             if auth:
+                get_operators()
                 return redirect(url_for('dashboard'))
             else:
                 return str(auth)
@@ -37,7 +39,7 @@ def dashboard():
 
 @app.route('/parameters')
 def parameters():
-    return render_template('parameters.html')
+    return render_template('parameters.html', operadores=get_operators)
 
 if __name__ == "__main__":
     app.run(debug=True)
