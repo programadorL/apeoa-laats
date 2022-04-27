@@ -3,20 +3,25 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Apoea - Laats</title>
-    <link rel="stylesheet" type="text/css" href="./static/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://css.gg/add.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./static/css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <style>
         .filter-section {
             background-color: {{department_color}};
+        }
+
+        .filter-section input, select{
+            color: {{department_color}};
         }
     </style>
 </head>
 <body>
     <div class="dashboard-page">
         <div class="filter-section">
-            <i class="gg-pen"></i>
+            <i class="large material-icons">dashboard</i>
             <input class="date-selector" type="date">
             <select class="operator-selector" placeholder="Operador">
                 <option value="" disabled selected hidden>Operador</option>
