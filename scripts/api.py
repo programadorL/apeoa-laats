@@ -1,5 +1,6 @@
 from scripts.query_builder import *
 import pyodbc
+import scripts.env
 from scripts.env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME, USER_ID, DEPARTMENT
 
 def user_auth(email, password):
@@ -9,9 +10,9 @@ def user_auth(email, password):
                 cursor.execute(get_user_auth_query(email, password))
                 result = cursor.fetchall()
                 if (email == result[0][0] and password == result[0][1]):
-                    USER_ID = result[0][2]
-                    DEPARTMENT = get_department(USER_ID)
-                    print(DEPARTMENT)
+                    scripts.env.USER_ID = result[0][2]
+                    scripts.env.DEPARTMENT = get_department(scripts.env.USER_ID)
+                    scripts.env.set_department_color()
                     return True
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
