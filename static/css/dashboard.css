@@ -38,6 +38,11 @@ tr, td {
   font-size: 18px;
 }
 
+.filter-section .hour-selector{
+  width: 110px;
+}
+
+
 .material-icons {
   position: relative;
   margin-right: 50px;

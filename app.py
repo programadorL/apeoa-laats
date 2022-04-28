@@ -35,11 +35,17 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR)
+    if scripts.env.LOGGED_IN:
+        return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR)
+    else:
+        return redirect(url_for('index'))
 
 @app.route('/parameters')
 def parameters():
-    return render_template('parameters.html', department_color=scripts.env.DEPARTMENT_COLOR)
+    if scripts.env.LOGGED_IN:
+        return render_template('parameters.html', department_color=scripts.env.DEPARTMENT_COLOR)
+    else:
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)

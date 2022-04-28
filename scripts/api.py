@@ -11,6 +11,7 @@ def user_auth(email, password):
                 result = cursor.fetchall()
                 if (email == result[0][0] and password == result[0][1]):
                     scripts.env.USER_ID = result[0][2]
+                    scripts.env.LOGGED_IN = True
                     scripts.env.DEPARTMENT = get_department(scripts.env.USER_ID)
                     scripts.env.set_department_color()
                     return True
