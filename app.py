@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import scripts.env
 from scripts.api import *
 
+from datetime import datetime, date, timedelta
 
 app = Flask(__name__)
 
@@ -33,10 +34,23 @@ def login():
                 return str(reset)
     return False
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if scripts.env.LOGGED_IN:
-        return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR)
+        if request.method == 'POST':
+
+            req_date = request.form["date-selector"]
+            time = request.form["time-selector"]
+            operator = request.form["operator-selector"]
+            flight_number = request.form["flight-selector"]
+            
+            operators = get_operators()
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators)
+        else:
+            current_date = date.today()
+
+            operators = get_operators()
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=current_date)
     else:
         return redirect(url_for('index'))
 
