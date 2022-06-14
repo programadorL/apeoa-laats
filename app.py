@@ -2,6 +2,7 @@ import re
 from flask import Flask, render_template, request, redirect, url_for
 import scripts.env
 from scripts.api import *
+from scripts.data_handler import *
 
 from datetime import datetime, date, timedelta
 
@@ -45,8 +46,9 @@ def dashboard():
             operator = request.form["operator-selector"]
             flight_number = request.form["flight-selector"]
             flights = get_flights(req_date, scripts.env.DEPARTMENT)
+            flights_tags, flights_periods = get_flights_gantt_data(flights)
             operators = get_operators()
-            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=req_date)
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods)
         else:
             current_date = date.today()
 
