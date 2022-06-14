@@ -1,3 +1,4 @@
+import re
 from flask import Flask, render_template, request, redirect, url_for
 import scripts.env
 from scripts.api import *
@@ -43,9 +44,9 @@ def dashboard():
             time = request.form["time-selector"]
             operator = request.form["operator-selector"]
             flight_number = request.form["flight-selector"]
-            
+            flights = get_flights(req_date, scripts.env.DEPARTMENT)
             operators = get_operators()
-            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators)
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=req_date)
         else:
             current_date = date.today()
 
