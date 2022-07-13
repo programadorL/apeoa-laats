@@ -35,11 +35,11 @@ def pin_reset(email, old_pin, new_pin, new_pin2):
     else:
         return False
         
-def get_flights(date, department):
+def get_flights(day, month, year, department):
     try: 
         with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
             with conn.cursor() as cursor:
-                cursor.execute(get_flights_query(date, department))
+                cursor.execute(get_flights_query(day, month, year, department))
                 result = cursor.fetchall()
                 return result
     except Exception as e:

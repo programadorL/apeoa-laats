@@ -38,6 +38,23 @@ tr, td {
   font-size: 18px;
 }
 
+.filter-section button {
+  font-family: "Roboto", sans-serif;
+  text-transfilter-section: uppercase;
+  outline: 0;
+  background: #00126B;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.filter-section button:hover,.filter-section button:active,.filter-section button:focus {
+  background: #5b4af2;
+}
+
 .filter-section .hour-selector{
   width: 110px;
 }
@@ -48,36 +65,36 @@ tr, td {
   margin-right: 50px;
 }
 
+canvas {
+  width: 1000px;
+  height: 1000px;
+}
+
+
 .flights-panel {
   position: relative;
   z-index: 1;
   background: #333533;
-  max-width: 360px;
-  margin: 0 auto 10px;
-  padding: 200px;
+  max-width: 1280px;
   text-align: center;
-  border-radius: 15px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);   
 }
 
 .personel-panel {
   position: relative;
   z-index: 1;
   background: #333533;
-  max-width: 360px;
-  margin: 0 auto 10px;
+  max-width: 1280px;
   padding: 200px;
   text-align: center;
-  border-radius: 15px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); 
 }
 
 .charts-panel {
   position: relative;
   z-index: 1;
   background: #333533;
-  max-width: 1000px;
-
+  max-width: 1280px;
   padding: 200px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);

@@ -40,15 +40,18 @@ def login():
 def dashboard():
     if scripts.env.LOGGED_IN:
         if request.method == 'POST':
-
             req_date = request.form["date-selector"]
-            time = request.form["time-selector"]
             operator = request.form["operator-selector"]
             flight_number = request.form["flight-selector"]
-            flights = get_flights(req_date, scripts.env.DEPARTMENT)
+            year = req_date[0:4] 
+            month = req_date[5:7] 
+            day = req_date[8:10] 
+            min_time = req_date + 'T00:00:00'
+            flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
             flights_tags, flights_periods = get_flights_gantt_data(flights)
-            operators = get_operators()
-            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods)
+            print(flights_tags, flights_periods )
+            operators = get_operators() 
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
         else:
             current_date = date.today()
 
@@ -60,7 +63,9 @@ def dashboard():
 @app.route('/parameters')
 def parameters():
     if scripts.env.LOGGED_IN:
-        return render_template('parameters.html', department_color=scripts.env.DEPARTMENT_COLOR)
+        if scripts.env.DEPARTMENT == 'PXS':
+            return render_template('parameters.html', department_color=scripts.env.DEPARTMENT_COLOR, personel_config = scripts.env.PXS_PERSONEL_CONFIG)
+        return render_template('parameters.html', department_color=scripts.env.DEPARTMENT_COLOR, personel_config=[])
     else:
         return redirect(url_for('index'))
 

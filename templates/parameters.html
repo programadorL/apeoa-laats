@@ -40,12 +40,13 @@
                     <th>Hora inicio</th>
                     <th>Hora final</th>
                 </tr>
-                {%for i in range(0,8)%}
+                {%for position in personel_config %}
                 <tr>
                     <td>
-                        <select class="position-selector">
-                            <option value="" disabled selected hidden>Seleccione...</option>
-                        </select>
+                        
+                        <label class="position-selector">
+                            {{position}}
+                        </label>
                     </td>
                     <td>
                         <input class="quantity-selector" type="number" step="1" value="0" min="0" max="20">
