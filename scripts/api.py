@@ -68,3 +68,14 @@ def get_operators():
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
         return False
+
+def get_aircrafts(id_operator):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_aircrafts_query(id_operator))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False

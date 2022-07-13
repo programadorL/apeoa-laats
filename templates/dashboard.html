@@ -29,8 +29,17 @@
                         <option value="{{operator[0]}}">{{operator[1]}}</option>
                     {% endfor %}
                 </select>
-                <select class="flight-selector" name="flight-selector" placeholder="Aeronave">
+                <select class="operation-selector" name="operation-selector" placeholder="Aeronave">
+                    <option value="0">TRANSITO</option>
+                    <option value="1">DESPACHO</option>
+                    <option value="2">RECEPCION</option>
+                    <option value="3">PERNOCTA</option>
+                </select>
+                <select class="aircraft-selector" name="aircraft-selector" placeholder="Aeronave">
                     <option value="0">Aeronave</option>
+                    {% for aircraft in aircrafts_list %}
+                        <option value="{{aircraft[0]}}">{{aircraft[1]}}</option>
+                    {% endfor %}
                 </select>
                 <button name="submit" value="search">Buscar</button>
             </form>
