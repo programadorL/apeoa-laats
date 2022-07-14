@@ -30,10 +30,10 @@
                     {% endfor %}
                 </select>
                 <select class="operation-selector" name="operation-selector" placeholder="Aeronave">
-                    <option value="0">TRANSITO</option>
-                    <option value="1">DESPACHO</option>
-                    <option value="2">RECEPCION</option>
-                    <option value="3">PERNOCTA</option>
+                    <option value="TRANSITO">TRANSITO</option>
+                    <option value="DESPACHO">DESPACHO</option>
+                    <option value="RECEPCION">RECEPCION</option>
+                    <option value="PERNOCTA">PERNOCTA</option>
                 </select>
                 <select class="aircraft-selector" name="aircraft-selector" placeholder="Aeronave">
                     <option value="0">Aeronave</option>
@@ -49,6 +49,7 @@
                 <table>
                     <tr>
                         <td colspan="2">
+                            <h1>Vuelos - {{department}} - {{date}}</h1>
                             <div class="flights-panel">
                                 <canvas id="myChart"></canvas>
                             </div>
@@ -56,7 +57,9 @@
                     </tr>
                     <tr>
                         <td colspan="2">
+                            <h1>Personal asignado</h1>
                             <div class="personel-panel">
+                                <canvas id="myChart2"></canvas>
                             </div>
                         </td>
                     </tr>
@@ -127,6 +130,11 @@
         // render init block
         const myChart = new Chart(
         document.getElementById('myChart'),
+        config
+        );
+
+        const myChart2 = new Chart(
+        document.getElementById('myChart2'),
         config
         );
     </script>

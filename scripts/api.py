@@ -57,13 +57,34 @@ def get_department(user_id):
         print("Ocurrió un error al conectar a SQL Server: ", e)
         return False
 
+def get_operator_id(operator_name):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_operator_id_query(operator_name))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
 def get_operators():
     try: 
         with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
             with conn.cursor() as cursor:
                 cursor.execute(get_operators_query())
                 result = cursor.fetchall()
-                print(result)
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_aircraft_id(aircraft, operator_id):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_aircraft_id_query(aircraft, operator_id))
+                result = cursor.fetchall()
                 return result
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
@@ -74,6 +95,51 @@ def get_aircrafts(id_operator):
         with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
             with conn.cursor() as cursor:
                 cursor.execute(get_aircrafts_query(id_operator))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_personel_parameters_pxs(operation_type, aircraft_id):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_personel_parameters_pxs_query(operation_type, aircraft_id))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_specific_flight(day, month, year, department, operation_type, operator, aircraft_type):
+    print(get_specific_flight_query(day, month, year, department, operation_type, operator, aircraft_type))
+    try:
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_specific_flight_query(day, month, year, department, operation_type, operator, aircraft_type))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_flight_personel_parameters_pxs(operation_type, aircraft_id):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_flight_personel_parameters_pxs_query(operation_type, aircraft_id))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_flight_personel_configuration_pxs(no_correlative):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_flight_personel_configuration_pxs_query(no_correlative))
                 result = cursor.fetchall()
                 return result
     except Exception as e:

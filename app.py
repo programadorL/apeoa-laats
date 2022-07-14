@@ -41,23 +41,41 @@ def dashboard():
     if scripts.env.LOGGED_IN:
         if request.method == 'POST':
             req_date = request.form["date-selector"]
-            operator = request.form["operator-selector"]
-            aircraft = request.form["aircraft-selector"]          
+            operator_id = request.form["operator-selector"]
+            operation_type = request.form["operation-selector"]     
+            aircraft_id = request.form["aircraft-selector"]       
             year = req_date[0:4] 
             month = req_date[5:7] 
             day = req_date[8:10] 
             min_time = req_date + 'T00:00:00'
             flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
             flights_tags, flights_periods = get_flights_gantt_data(flights)
-            print(flights_tags, flights_periods)
             operators = get_operators() 
-            aircrafts = get_aircrafts(operator)
-            print(aircrafts)
-            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, aircrafts_list=aircrafts, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
+            aircrafts = get_aircrafts(operator_id)
+
+            operator_name = ''
+            for operator in operators:
+                print(operator[0], ' ', operator_id)
+                if (operator[0] == int(operator_id)):
+                    operator_name = operator[1]
+            
+            print(operator_name)
+            
+            aircraft_type = ''
+            for aircraft in aircrafts:
+                if (aircraft[0] == int(aircraft_id)):
+                    aircraft_type = aircraft[1]
+
+            print(operator_name, aircraft_type)
+            #
+            flight = get_specific_flight(day, month, year, scripts.env.DEPARTMENT, operation_type, operator_name, aircraft_type)
+            print(flight)
+            #
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, operators_list=operators, aircrafts_list=aircrafts, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
         else:
             current_date = date.today()
             '''print(current_date)
-            #min_time = current_date + 'T00:00:00'
+            #min_time =     current_date + 'T00:00:00'
             flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
             flights_tags, flights_periods = get_flights_gantt_data(flights)'''
             operators = get_operators()
@@ -75,4 +93,4 @@ def parameters():
         return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 

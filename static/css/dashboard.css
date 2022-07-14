@@ -30,7 +30,7 @@ tr, td {
   text-align: center;
   outline: 0;
   color: #9d9b9b;
-  background: #2d2c2c; /*#333533*/
+  background: #333533; /*#333533*/
   width: 250px;
   border: 0;
   padding: 10px;
@@ -76,6 +76,8 @@ canvas {
   z-index: 1;
   background: #333533;
   max-width: 1280px;
+  padding-left: 150px;
+  padding-right: 150px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);   
 }
@@ -85,7 +87,8 @@ canvas {
   z-index: 1;
   background: #333533;
   max-width: 1280px;
-  padding: 200px;
+  padding-left: 150px;
+  padding-right: 150px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); 
 }
@@ -95,7 +98,8 @@ canvas {
   z-index: 1;
   background: #333533;
   max-width: 1280px;
-  padding: 200px;
+  padding-left: 150px;
+  padding-right: 150px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -125,6 +129,7 @@ canvas {
 body {
   background: #242423;/* fallback for old browsers  #242423*/
   background: rgb(36, 36, 35);
+  color: #9d9b9b;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
