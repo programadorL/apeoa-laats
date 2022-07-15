@@ -145,3 +145,25 @@ def get_flight_personel_configuration_pxs(no_correlative):
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
         return False
+
+def get_flight_et_personel_parameters_pxs(parameter_id):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_flight_et_personel_parameters_pxs_query(parameter_id))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
+
+def get_flight_times_personel_pxs(parameter_id):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_flight_times_personel_pxs_query(parameter_id))
+                result = cursor.fetchall()
+                return result
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False

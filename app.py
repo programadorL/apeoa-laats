@@ -1,6 +1,7 @@
 import re
 from flask import Flask, render_template, request, redirect, url_for
 import scripts.env
+import scripts.data
 from scripts.api import *
 from scripts.data_handler import *
 
@@ -55,23 +56,34 @@ def dashboard():
 
             operator_name = ''
             for operator in operators:
-                print(operator[0], ' ', operator_id)
                 if (operator[0] == int(operator_id)):
                     operator_name = operator[1]
             
-            print(operator_name)
             
             aircraft_type = ''
             for aircraft in aircrafts:
                 if (aircraft[0] == int(aircraft_id)):
                     aircraft_type = aircraft[1]
 
-            print(operator_name, aircraft_type)
             #
             flight = get_specific_flight(day, month, year, scripts.env.DEPARTMENT, operation_type, operator_name, aircraft_type)
-            print(flight)
+            if len(flight) > 0:
+                print(flight[0][0])
+                no_correlative = str(flight[0][0])
+                config = get_flight_personel_configuration_pxs(no_correlative)
+
+                parameter = get_flight_personel_parameters_pxs(operation_type, aircraft_id)
+                parameter_id = str(parameter[0][0])
+                et_parameter = get_flight_et_personel_parameters_pxs(str(int(parameter_id)-1))
+
+                start_time = flight[0][7]
+                end_time = flight[0][8]
+                
+                times_parameter = get_flight_times_personel_pxs(parameter_id)
+                print(times_parameter)
+                print(et_parameter)
             #
-            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, operators_list=operators, aircrafts_list=aircrafts, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, operators_list=operators, aircrafts_list=aircrafts, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=scripts.data.positions, personel_times=scripts.data.personel_times)
         else:
             current_date = date.today()
             '''print(current_date)

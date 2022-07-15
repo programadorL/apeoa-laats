@@ -22,4 +22,26 @@ def get_flights_gantt_data(flights):
             flight_ending_time = flight_date + 'T' + str(flight[6])
             time_period = [flight_starting_time, flight_ending_time]
             flights_periods.append(time_period)
+    print(flights_tags, flights_periods)
     return flights_tags, flights_periods
+
+def process_personel_et(operation_type, start_time, end_time, times_parameter, et_parameter):
+    start_hour = int(start_time[0:2])
+    start_minutes = int(start_time[3:5])
+    start_time_minutes = start_hour*60 + start_minutes
+
+    end_hour = int(end_time[0:2])
+    end_minutes = int(end_time[3:5])
+    end_time_minutes = end_hour*60 + end_minutes
+
+    date_times_minutes = []
+    if (operation_type == 'DESPACHO'):
+        for i in len(times_parameter):
+            if et_parameter[i + 1] == 'ETA':
+                date_times_minutes.append(times_parameter[i + 1] + start_time_minutes)
+            if et_parameter[i + 1] == 'ETD':
+                date_times_minutes.append(times_parameter[i + 1] + end_time_minutes)
+            
+
+
+
