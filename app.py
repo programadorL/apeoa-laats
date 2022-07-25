@@ -37,6 +37,19 @@ def login():
                 return str(reset)
     return False
 
+@app.route('/fligths')
+def flights():
+    if request.method == 'POST':
+        print("")
+    else:
+        current_date = date.today() 
+        year = current_date.strftime('%Y')
+        month = current_date.strftime('%m')
+        day = current_date.strftime('%d')
+        selected_flights = get_flights(day, month, year, 'PXS')
+        return render_template('flights.html', flights=selected_flights)
+
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if scripts.env.LOGGED_IN:

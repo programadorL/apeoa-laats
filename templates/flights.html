@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Apoea - Laats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/add.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./static/css/flights.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <style>
+        .filter-section {
+            background-color: {{department_color}};
+        }
+
+        .filter-section input, select{
+            color: {{department_color}};
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-page">
+        <div class="filter-section">
+            <form class="filter-form" id="filter-form" method="POST">
+                <input class="date-selector" name="date-selector" type="date" value="{{current_date}}">
+                <select class="operator-selector" name="operator-selector" placeholder="Operador">
+                    <option value="0" >Operador</option>
+                    {% for operator in operators_list %}
+                        <option value="{{operator[0]}}">{{operator[1]}}</option>
+                    {% endfor %}
+                </select>
+                <select class="operation-selector" name="operation-selector" placeholder="Aeronave">
+                    <option value="TRANSITO">TRANSITO</option>
+                    <option value="DESPACHO">DESPACHO</option>
+                    <option value="RECEPCION">RECEPCION</option>
+                    <option value="PERNOCTA">PERNOCTA</option>
+                </select>
+                <select class="aircraft-selector" name="aircraft-selector" placeholder="Aeronave">
+                    <option value="0">Aeronave</option>
+                    {% for aircraft in aircrafts_list %}
+                        <option value="{{aircraft[0]}}">{{aircraft[1]}}</option>
+                    {% endfor %}
+                </select>
+                <button name="submit" value="search">Buscar</button>
+            </form>
+        </div>
+        <div class="panels">
+            <table class="canvas">
+                <table>
+                    {% for flight in flights: %}
+                    <tr>
+                        <td colspan="1">
+                            <div class="flight-panel">
+                                <h1 style="color: rgb(244, 244, 106);">Vuelo: {{flight[7]}}</h1>
+                                <h2>Operador: {{flight[8]}}</h2>
+                                <h2>Fecha: {{flight[0]}}-{{flight[1]}}-{{flight[2]}}</h2>
+                                <h2>Origen: {{flight[3]}}</h2>
+                                <h2>Destino: {{flight[4]}}</h2>
+                                <h2>ETA: {{flight[5]}}</h2>
+                                <h2>ETD: {{flight[5]}}</h2>                       
+                                <form class="flight-form">
+                                    <button>Ir al vuelo</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
