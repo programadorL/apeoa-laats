@@ -37,10 +37,15 @@ def login():
                 return str(reset)
     return False
 
-@app.route('/fligths')
+@app.route('/fligths', methods=['GET', 'POST'])
 def flights():
     if request.method == 'POST':
-        print("")
+        req_date = request.form["date-selector"]
+        year = req_date[0:4] 
+        month = req_date[5:7] 
+        day = req_date[8:10] 
+        selected_flights = get_flights(day, month, year, 'PXS')
+        return render_template('flights.html', flights=selected_flights)
     else:
         current_date = date.today() 
         year = current_date.strftime('%Y')
