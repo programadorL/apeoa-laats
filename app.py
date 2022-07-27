@@ -44,15 +44,19 @@ def flights():
         year = req_date[0:4] 
         month = req_date[5:7] 
         day = req_date[8:10] 
+        min_time = req_date + 'T00:00:00'
         selected_flights = get_flights(day, month, year, 'PXS')
-        return render_template('flights.html', flights=selected_flights)
+        flights_tags, flights_periods = get_flights_gantt_data(selected_flights)
+        return render_template('flights.html', flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
     else:
         current_date = date.today() 
         year = current_date.strftime('%Y')
         month = current_date.strftime('%m')
         day = current_date.strftime('%d')
+        min_time = year + '-' + month + '' + day + 'T00:00:00'
         selected_flights = get_flights(day, month, year, 'PXS')
-        return render_template('flights.html', flights=selected_flights)
+        flights_tags, flights_periods = get_flights_gantt_data(selected_flights)
+        return render_template('flights.html', flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])

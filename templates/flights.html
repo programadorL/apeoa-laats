@@ -55,10 +55,17 @@
         <div class="panels">
             <table class="canvas">
                 <table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="flights-panel">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </td>
+                    </tr>
                     {% for flight in flights: %}
                     <tr>
                         <td colspan="1">
-                            <div class="flight-panel">
+                            <div class="flight-card">
                                 <h1 style="color: rgb(244, 244, 106);">Vuelo: {{flight[7]}}</h1>
                                 <h1 style="color: rgb(244, 131, 106);">Aeronave: {{flight[10]}}</h1>
                                 <h2>Operador: {{flight[8]}}</h2>
@@ -78,6 +85,8 @@
             </table>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
@@ -87,6 +96,64 @@
             document.getElementById("mySidenav").style.width = "0";
         }
         
+        const data = {
+        labels: {{flights_tags | safe}},
+        datasets: [{
+            label: 'Vuelos de hoy',
+            data: {{flights_periods | safe}},
+            backgroundColor: [
+            'rgba(255, 26, 104, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(0, 0, 0, 0.2)'
+            ],
+            borderColor: [
+            'rgba(255, 26, 104, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(0, 0, 0, 1)'
+            ],
+            borderWidth: 1,
+            barPercentage: 1
+        }]
+        };
+        // config 
+        const config = {
+        type: 'bar',
+        data,
+        options: {  
+            maintainAspectRatio: true,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    min: '{{min_time}}',
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
+                    },
+                    
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+        };
+
+        // render init block
+        const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+        );
+
+       
     </script>
+</body>
 </body>
 </html>
