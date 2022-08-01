@@ -22,7 +22,7 @@ def login():
             pin = request.form["password"]
             auth = user_auth(email, pin)
             if auth:
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('flights'))
             else:
                 return str(auth)
         elif form == "reset":
@@ -47,7 +47,7 @@ def flights():
         min_time = req_date + 'T00:00:00'
         selected_flights = get_flights(day, month, year, 'PXS')
         flights_tags, flights_periods = get_flights_gantt_data(selected_flights)
-        return render_template('flights.html', flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
+        return render_template('flights.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
     else:
         current_date = date.today() 
         year = current_date.strftime('%Y')
@@ -56,7 +56,7 @@ def flights():
         min_time = year + '-' + month + '' + day + 'T00:00:00'
         selected_flights = get_flights(day, month, year, 'PXS')
         flights_tags, flights_periods = get_flights_gantt_data(selected_flights)
-        return render_template('flights.html', flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
+        return render_template('flights.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=current_date, flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])

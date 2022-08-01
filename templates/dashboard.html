@@ -134,10 +134,12 @@
         );
 
         //personel
+        
+
         const data2 = {
         labels: {{positions | safe}},
         datasets: [{
-            label: 'Posiciones para el vuelo',
+            label: 'Personal asignado',
             data: {{personel_times | safe}},
             backgroundColor: [
             'rgba(255, 26, 104, 0.2)',
@@ -165,7 +167,7 @@
         // config 
         const config2 = {
         type: 'bar',    
-        data2,
+        data: data2,
         options: {  
             maintainAspectRatio: true,
             indexAxis: 'y',
@@ -189,6 +191,7 @@
         document.getElementById('myChart2'),
         config2
         );
+
     </script>
 </body>
 </html>

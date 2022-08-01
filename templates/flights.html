@@ -30,7 +30,7 @@
         <span style="position:sticky; font-size:30px;cursor:pointer;" onclick="openNav()">&#9776; Menu</span>
         <div class="filter-section">
             <form class="filter-form" id="filter-form" method="POST">
-                <input class="date-selector" name="date-selector" type="date" value="{{current_date}}">
+                <input class="date-selector" name="date-selector" type="date" value="{{date}}">
                 <select class="operator-selector" name="operator-selector" placeholder="Operador">
                     <option value="0" >Operador</option>
                     {% for operator in operators_list %}
@@ -57,6 +57,7 @@
                 <table>
                     <tr>
                         <td colspan="2">
+                            <h1>Vuelos - {{department}} - {{date}}</h1>
                             <div class="flights-panel">
                                 <canvas id="myChart"></canvas>
                             </div>
@@ -150,9 +151,7 @@
         const myChart = new Chart(
         document.getElementById('myChart'),
         config
-        );
-
-       
+        ); 
     </script>
 </body>
 </body>
