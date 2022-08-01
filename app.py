@@ -58,11 +58,57 @@ def flights():
         flights_tags, flights_periods = get_flights_gantt_data(selected_flights)
         return render_template('flights.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=current_date, flights=selected_flights, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
 
+@app.route('/process_flight_data/<no_correlative>', methods=['GET', 'POST'])
+def set_flight_data(no_correlative):
+    return redirect(url_for('dashboard', no_correlative=no_correlative))
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if scripts.env.LOGGED_IN:
-        if request.method == 'POST':
+        args = request.args
+        no_correlative = args.get("no_correlative")
+
+        flight = get_flight_by_correlative(no_correlative)
+
+        aircraft_type = flight[0][14]
+        operator_name = flight[0][10]
+
+        operator_id = get_operator_id(operator_name)
+
+        operator_id = str(operator_id[0][0])
+
+        aircraft_id = get_aircraft_id(aircraft_type, operator_id)
+
+        aircraft_id = str(aircraft_id[0][0])
+
+        operation_type = flight[0][11]
+
+        year = str(flight[0][1])
+        month = str(flight[0][3])
+        day = str(flight[0][2])
+        req_date = year + '-0' + month + '-0' +  day 
+
+        min_time = req_date + 'T00:00:00'
+
+        flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
+        flights_tags, flights_periods = get_flights_gantt_data(flights)
+
+
+        config = get_flight_personel_configuration_pxs(no_correlative)
+
+        parameter = get_flight_personel_parameters_pxs(operation_type, aircraft_id)
+        parameter_id = str(parameter[0][0])
+        et_parameter = get_flight_et_personel_parameters_pxs(str(int(parameter_id)-1))
+
+        start_time = flight[0][7]
+        end_time = flight[0][8]
+        
+        times_parameter = get_flight_times_personel_pxs(parameter_id)
+        print(times_parameter)
+        print(et_parameter)
+        print(flights_tags, flights_periods)
+        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=scripts.data.positions, personel_times=scripts.data.personel_times)
+        '''if request.method == 'POST':
             req_date = request.form["date-selector"]
             operator_id = request.form["operator-selector"]
             operation_type = request.form["operation-selector"]     
@@ -108,12 +154,12 @@ def dashboard():
             return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, operators_list=operators, aircrafts_list=aircrafts, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=scripts.data.positions, personel_times=scripts.data.personel_times)
         else:
             current_date = date.today()
-            '''print(current_date)
+            #print(current_date)
             #min_time =     current_date + 'T00:00:00'
-            flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
-            flights_tags, flights_periods = get_flights_gantt_data(flights)'''
+            #flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
+            #flights_tags, flights_periods = get_flights_gantt_data(flights)
             operators = get_operators()
-            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=current_date)#, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)
+            return render_template('dashboard.html',  department_color=scripts.env.DEPARTMENT_COLOR, operators_list=operators, current_date=current_date)#, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time)'''
     else:
         return redirect(url_for('index'))
 
@@ -127,4 +173,4 @@ def parameters():
         return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+                app.run(debug=True) 

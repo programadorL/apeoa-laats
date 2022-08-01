@@ -22,7 +22,6 @@ def get_flights_gantt_data(flights):
             flight_ending_time = flight_date + 'T' + str(flight[6])
             time_period = [flight_starting_time, flight_ending_time]
             flights_periods.append(time_period)
-    print(flights_tags, flights_periods)
     return flights_tags, flights_periods
 
 def process_personel_et(operation_type, start_time, end_time, times_parameter, et_parameter):

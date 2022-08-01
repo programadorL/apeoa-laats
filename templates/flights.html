@@ -75,7 +75,7 @@
                                 <h2>Destino: {{flight[4]}}</h2>
                                 <h2>ETA: {{flight[5]}}</h2>
                                 <h2>ETD: {{flight[6]}}</h2>                       
-                                <form class="flight-form">
+                                <form class="flight-form" method="POST" action="/process_flight_data/{{flight[9]}}">
                                     <button>Ir al vuelo</button>
                                 </form>
                             </div>

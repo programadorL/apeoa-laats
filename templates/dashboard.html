@@ -19,31 +19,7 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-page">
-        <div class="filter-section">
-            <form class="filter-form" id="filter-form" method="POST">
-                <input class="date-selector" name="date-selector" type="date" value="{{current_date}}">
-                <select class="operator-selector" name="operator-selector" placeholder="Operador">
-                    <option value="0" >Operador</option>
-                    {% for operator in operators_list %}
-                        <option value="{{operator[0]}}">{{operator[1]}}</option>
-                    {% endfor %}
-                </select>
-                <select class="operation-selector" name="operation-selector" placeholder="Aeronave">
-                    <option value="TRANSITO">TRANSITO</option>
-                    <option value="DESPACHO">DESPACHO</option>
-                    <option value="RECEPCION">RECEPCION</option>
-                    <option value="PERNOCTA">PERNOCTA</option>
-                </select>
-                <select class="aircraft-selector" name="aircraft-selector" placeholder="Aeronave">
-                    <option value="0">Aeronave</option>
-                    {% for aircraft in aircrafts_list %}
-                        <option value="{{aircraft[0]}}">{{aircraft[1]}}</option>
-                    {% endfor %}
-                </select>
-                <button name="submit" value="search">Buscar</button>
-            </form>
-        </div>
+    <div class="dashboard-page">    
         <div class="panels">
             <table class="canvas">
                 <table>
@@ -191,6 +167,8 @@
         document.getElementById('myChart2'),
         config2
         );
+        console.log(data)
+        console.log(data2)
 
     </script>
 </body>
