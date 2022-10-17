@@ -82,13 +82,21 @@ def dashboard():
         aircraft_id = str(aircraft_id[0][0])
 
         operation_type = flight[0][11]
-
+        
         year = str(flight[0][1])
-        month = str(flight[0][3])
-        day = str(flight[0][2])
-        req_date = year + '-0' + month + '-0' +  day 
+        if flight[0][3] < 10:
+            month = '0' + str(flight[0][3])
+        else:
+            month = str(flight[0][3])
+        if flight[0][2] < 10:   
+            day = '0' + str(flight[0][2])
+        else:
+            day = str(flight[0][2])
+
+        req_date = year + '-' + month + '-' +  day 
 
         min_time = req_date + 'T00:00:00'
+        print(min_time)
 
         flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
         flights_tags, flights_periods = get_flights_gantt_data(flights)
@@ -104,9 +112,9 @@ def dashboard():
         end_time = flight[0][8]
         
         times_parameter = get_flight_times_personel_pxs(parameter_id)
-        print(times_parameter)
-        print(et_parameter)
-        print(flights_tags, flights_periods)
+        #print(times_parameter)
+        #print(et_parameter)
+        #print(flights_tags, flights_periods)
         return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=scripts.data.positions, personel_times=scripts.data.personel_times)
         '''if request.method == 'POST':
             req_date = request.form["date-selector"]
@@ -173,4 +181,4 @@ def parameters():
         return redirect(url_for('index'))
 
 if __name__ == "__main__":
-                app.run(debug=True) 
+    app.run(debug=True) 

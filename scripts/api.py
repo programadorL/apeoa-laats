@@ -178,3 +178,19 @@ def get_flight_by_correlative(no_correlative):
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
         return False
+
+def get_configuracion_personal_pxs(no_correlative):
+    try: 
+        with pyodbc.connect('DRIVER='+DRIVER+';SERVER=tcp:'+SERVER+';PORT='+PORT+';DATABASE='+DATABASE+';UID='+USERNAME+';PWD='+ PASSWORD) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(get_configuracion_personal_pxs_query(no_correlative))
+                result = cursor.fetchall()
+                staff_positions = ['Crew chief', "Operadores", "Agentes de rampa", "Agentes de mostrador", "Agentes de fajas", "Agentes de rayos x", "Agentes de limpieza"]
+                staff_qty = []
+                for i in range(2,9):
+                    staff_qty.append(result[0][i])
+                staff_config = [staff_positions, staff_qty]
+                return staff_config
+    except Exception as e:
+        print("Ocurrió un error al conectar a SQL Server: ", e)
+        return False
