@@ -35,7 +35,7 @@ def process_personel_et(operation_type, start_time, end_time, times_parameter, e
 
     date_times_minutes = []
     if (operation_type == 'DESPACHO'):
-        for i in len(times_parameter):
+        for i in range(0, len(times_parameter)):
             if et_parameter[i + 1] == 'ETA':
                 date_times_minutes.append(times_parameter[i + 1] + start_time_minutes)
             if et_parameter[i + 1] == 'ETD':

@@ -4,6 +4,7 @@ import scripts.env
 import scripts.data
 from scripts.api import *
 from scripts.data_handler import *
+from scripts.colab import *
 
 from datetime import datetime, date, timedelta
 
@@ -72,9 +73,8 @@ def dashboard():
 
         aircraft_type = flight[0][14]
         operator_name = flight[0][10]
-
+        
         operator_id = get_operator_id(operator_name)
-
         operator_id = str(operator_id[0][0])
 
         aircraft_id = get_aircraft_id(aircraft_type, operator_id)
@@ -96,26 +96,27 @@ def dashboard():
         req_date = year + '-' + month + '-' +  day 
 
         min_time = req_date + 'T00:00:00'
-        print(min_time)
 
         flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
         flights_tags, flights_periods = get_flights_gantt_data(flights)
 
-
-        config = get_flight_personel_configuration_pxs(no_correlative)
-
-        parameter = get_flight_personel_parameters_pxs(operation_type, aircraft_id)
-        parameter_id = str(parameter[0][0])
-        et_parameter = get_flight_et_personel_parameters_pxs(str(int(parameter_id)-1))
+        #parameter = get_flight_personel_parameters_pxs(operation_type, aircraft_id)
+        #parameter_id = str(parameter[0][0])
+       # et_parameter = get_flight_et_personel_parameters_pxs(str(int(parameter_id)-1))
 
         start_time = flight[0][7]
         end_time = flight[0][8]
         
-        times_parameter = get_flight_times_personel_pxs(parameter_id)
+        #times_parameter = get_flight_times_personel_pxs(parameter_id)
+
+        flight_info = flight[0]
+
+        staff_config = get_configuracion_personal_pxs(no_correlative)
         #print(times_parameter)
         #print(et_parameter)
         #print(flights_tags, flights_periods)
-        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=scripts.data.positions, personel_times=scripts.data.personel_times)
+        tiempos, agents, matrix_freq = colab(int(no_correlative), int(flight[0][3]))
+        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, flight_info=flight_info, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=agents, personel_times=tiempos, staff_config=staff_config, matrix_freq=matrix_freq)
         '''if request.method == 'POST':
             req_date = request.form["date-selector"]
             operator_id = request.form["operator-selector"]
@@ -181,4 +182,4 @@ def parameters():
         return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run(debug=True)     

@@ -104,6 +104,19 @@ canvas {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.freq-personel {
+  position: relative;
+  z-index: 1;
+  background: #333533;
+  max-width: 1280px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+  overflow-y:scroll;
+  display:block;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);   
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 20px;
