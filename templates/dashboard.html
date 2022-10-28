@@ -24,8 +24,8 @@
             <table class="canvas">
                 <table>
                     <tr>
-                        <td colspan="2">
-                            <h1>Informaci&oacute;n del vuelo</h1>
+                        <h1>Informaci&oacute;n del vuelo</h1>
+                        <td class="flight-info-panel" colspan="2">
                             {% for attribute in flight_info %}
                                 <h2>{{attribute}}</h2> 
                             {% endfor %}
@@ -65,16 +65,36 @@
                         <td colspan="2">
                             <h1>Matr&iacute;z de frecuencia de personal</h1>
                             <table class="freq-personel">
+                                {% set count = 0 %}
+                                {% set onTitles = True %}
+
                                 {% for row in matrix_freq %}
                                     <tr>
                                     {% for column in row %}
-                                        {% if column >= 0 %}
-                                            <td bgcolor="green">{{column}}</td>
-                                        {% else %}
-                                            <td bgcolor="red">{{column}}</td>
+
+                                        {% if onTitles == True %}
+                                            <td>{{matrix_titles[count]}}</td>
                                         {% endif %}
+
+                                        {% if count == 9 %}
+                                            {% if column >= 0 %}
+                                                <td bgcolor="green">{{column}}</td>
+                                            {% else %}
+                                                <td bgcolor="red">{{column}}</td>
+                                            {% endif %}
+                                        {% elif count >= 0 and count <= 6 %}
+                                            {% if column > 0 %}
+                                                <td bgcolor="blue">{{column}}</td>
+                                            {% else %}
+                                                <td>{{column}}</td>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% set count = count + 1 %}
                                     {% endfor %}
                                     </tr>
+                                    {% set onTitles = False %}
+                                    {% set countNumb = 0 %}
                                 {% endfor %}
                             </table>
                         </td>

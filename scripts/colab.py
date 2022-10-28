@@ -239,6 +239,7 @@ def colab(no_correlativo1, mes):
                             3. Hacer append en una lista.
                             4. Recorrer la lista por posicion y sumar las celdas de la matriz freq con las cantidades de personal.
                         '''
+                        #cantidad personal 
                         for i in range(0, 7):
                             if i < 0:
                                 index = i * 2 + 1
@@ -293,15 +294,22 @@ def colab(no_correlativo1, mes):
 
     #personal asignado
     personal_lapse = 0 
+    personel = {'crew_chief':9, 'supervisores':4, 'operadores':10, 'agentes':46}
     for i in range(0, len(matriz_freq[0])):
+        per_disp = 0
         for o in range(0, 6):
             personal_lapse = personal_lapse + matriz_freq[o][i]
         matriz_freq[7][i] = personal_lapse
-        if i % 2:
-            matriz_freq[8][i] = personal_lapse*2
-        else:
-            matriz_freq[8][i] = personal_lapse
-        matriz_freq[9][i] = matriz_freq[7][i] - matriz_freq[8][i]
+        if matriz_freq[0][i] > 0:
+            per_disp = per_disp + personel['crew_chief']
+        if matriz_freq[1][i] > 0:
+            per_disp = per_disp + personel['operadores']
+        if matriz_freq[2][i] > 0 or matriz_freq[3][i] > 0 or matriz_freq[4][i] > 0 or matriz_freq[5][i] > 0 or matriz_freq[6][i] > 0:
+            per_disp = per_disp + personel['agentes']
+
+        matriz_freq[8][i] = per_disp
+
+        matriz_freq[9][i] = matriz_freq[8][i] - matriz_freq[7][i]
         personal_lapse = 0
 
     #for row in matriz_freq:

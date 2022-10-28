@@ -26,7 +26,7 @@ def login():
                 return redirect(url_for('flights'))
             else:
                 return str(auth)
-        elif form == "reset":
+        elif cform == "reset":
             email = request.form["email"]
             old_pin = request.form["old-password"]
             new_pin = request.form["new-password"]
@@ -116,7 +116,13 @@ def dashboard():
         #print(et_parameter)
         #print(flights_tags, flights_periods)
         tiempos, agents, matrix_freq = colab(int(no_correlative), int(flight[0][3]))
-        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, flight_info=flight_info, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=agents, personel_times=tiempos, staff_config=staff_config, matrix_freq=matrix_freq)
+
+        asig_per = matrix_freq[7]
+        req_per = matrix_freq[8]
+        titles = True
+        countNumb = 0
+        matrix_titles = ['Crew chiefs', 'Operadores', 'Agentes de Rampa', 'Agentes de mostrador', 'Agentes de fajas', 'Agentes de rayos x', 'Agentes de limpieza', 'Personal asignado', 'Personal disponible', 'Diff. Personal']
+        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, flight_info=flight_info, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=agents, personel_times=tiempos, staff_config=staff_config, matrix_freq=matrix_freq, matrix_titles=matrix_titles, titles=titles, countNumb=countNumb)
         '''if request.method == 'POST':
             req_date = request.form["date-selector"]
             operator_id = request.form["operator-selector"]

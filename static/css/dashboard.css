@@ -70,6 +70,16 @@ canvas {
   height: 1000px;
 }
 
+.flight-info-panel {
+  position: relative;
+  z-index: 1;
+  background: #333533;
+  max-width: 1280px;
+  padding-left: 150px;
+  padding-right: 150px;
+  text-align: left;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);   
+}
 
 .flights-panel {
   position: relative;
@@ -130,13 +140,13 @@ canvas {
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #3e3e3e; 
+  background: #00126B; 
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #484948; 
+  background: #081971; 
 }
 
 body {
