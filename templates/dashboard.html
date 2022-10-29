@@ -65,36 +65,28 @@
                         <td colspan="2">
                             <h1>Matr&iacute;z de frecuencia de personal</h1>
                             <table class="freq-personel">
-                                {% set count = 0 %}
-                                {% set onTitles = True %}
-
-                                {% for row in matrix_freq %}
+                                {% for i in range(0, matrix_freq|length) %}
                                     <tr>
-                                    {% for column in row %}
+                                    {% for o in range(0, matrix_freq[0]|length) %}
 
-                                        {% if onTitles == True %}
-                                            <td>{{matrix_titles[count]}}</td>
+                                        {% if o == 0%}
+                                            <td bgcolor="red" style="color:white;">{{matrix_titles[i]}}</td>
+                                        {% endif %}
+                                        
+                                        {% if matrix_freq[i][o] > 0 and i < 7 %}
+                                            <td bgcolor="blue" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                        {% elif i == 9 %}
+                                            <td bgcolor="green" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                        {% elif i == 7 %}
+                                            <td bgcolor="yellow" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                        {% elif i == 8 %}
+                                            <td bgcolor="orange" style="color:white;" >{{matrix_freq[i][o]}}</td>
+                                        {% else %}
+                                            <td style="color:white;">{{matrix_freq[i][o]}}</td>
                                         {% endif %}
 
-                                        {% if count == 9 %}
-                                            {% if column >= 0 %}
-                                                <td bgcolor="green">{{column}}</td>
-                                            {% else %}
-                                                <td bgcolor="red">{{column}}</td>
-                                            {% endif %}
-                                        {% elif count >= 0 and count <= 6 %}
-                                            {% if column > 0 %}
-                                                <td bgcolor="blue">{{column}}</td>
-                                            {% else %}
-                                                <td>{{column}}</td>
-                                            {% endif %}
-                                        {% endif %}
-
-                                        {% set count = count + 1 %}
                                     {% endfor %}
                                     </tr>
-                                    {% set onTitles = False %}
-                                    {% set countNumb = 0 %}
                                 {% endfor %}
                             </table>
                         </td>
