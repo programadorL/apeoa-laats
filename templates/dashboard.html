@@ -24,11 +24,17 @@
             <table class="canvas">
                 <table>
                     <tr>
-                        <h1>Informaci&oacute;n del vuelo</h1>
                         <td class="flight-info-panel" colspan="2">
-                            {% for attribute in flight_info %}
-                                <h2>{{attribute}}</h2> 
-                            {% endfor %}
+                            <h1>Informaci&oacute;n del vuelo</h1>
+                            <h1 style="color: rgb(244, 244, 106);">Vuelo: {{flight_info[9]}}</h1>
+                            <h1 style="color: rgb(244, 131, 106);">Aeronave: {{flight_info[14]}}</h1>
+                            <h2>Operador: {{flight_info[10]}}</h2>
+                            <h2>Fecha: {{flight_info[3]}}-{{flight_info[2]}}-{{flight_info[1]}}</h2>
+                            <h2>Tipo operaci&oacute;n: {{flight_info[11]}}</h2>  
+                            <h2>Origen: {{flight_info[5]}}</h2>
+                            <h2>Destino: {{flight_info[6]}}</h2>
+                            <h2>ETA: {{flight_info[7]}}</h2>
+                            <h2>ETD: {{flight_info[8]}}</h2>    
                         </td>
                     </tr>
                     <tr>
@@ -65,20 +71,29 @@
                         <td colspan="2">
                             <h1>Matr&iacute;z de frecuencia de personal</h1>
                             <table class="freq-personel">
+                                <tr>
+                                    {% for title in time_titles %}
+                                        <td bgcolor="#E84712" style="color:white;">{{title}}</td>
+                                    {% endfor %}
+                                </tr>
                                 {% for i in range(0, matrix_freq|length) %}
                                     <tr>
-                                    {% for o in range(0, matrix_freq[0]|length) %}
+                                    {% for o in range(start_time, end_time) %}
 
-                                        {% if o == 0%}
-                                            <td bgcolor="red" style="color:white;">{{matrix_titles[i]}}</td>
+                                        {% if o == start_time%}
+                                            <td bgcolor="#E84712" style="color:white;">{{matrix_titles[i]}}</td>
                                         {% endif %}
                                         
                                         {% if matrix_freq[i][o] > 0 and i < 7 %}
                                             <td bgcolor="blue" style="color:white;">{{matrix_freq[i][o]}}</td>
                                         {% elif i == 9 %}
-                                            <td bgcolor="green" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                            {% if matrix_freq[i][o] >= 0 %}
+                                                <td bgcolor="green" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                            {% else %}
+                                                <td bgcolor="red" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                            {% endif %}
                                         {% elif i == 7 %}
-                                            <td bgcolor="yellow" style="color:white;">{{matrix_freq[i][o]}}</td>
+                                            <td bgcolor="#0DA0B3" style="color:white;">{{matrix_freq[i][o]}}</td>
                                         {% elif i == 8 %}
                                             <td bgcolor="orange" style="color:white;" >{{matrix_freq[i][o]}}</td>
                                         {% else %}
@@ -89,6 +104,14 @@
                                     </tr>
                                 {% endfor %}
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h1>Gr&aacute;fica de frecuencia de personal</h1>
+                            <div class="flights-panel">
+                                <canvas id="freqChart"></canvas>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -215,6 +238,41 @@
         );
         console.log(data)
         console.log(data2)
+
+        new Chart("freqChart", {
+            type: "line",
+            data: {
+              labels: {{hours | safe}},
+              datasets: [{
+                label: 'Diff. Personal',
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(240, 15, 15, 0.8)",
+                borderColor: "rgba(240, 15, 15, 0.8)",
+                data: {{freq | safe}}
+              },{
+                label: 'Personal Asignado',
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(13, 160, 179, 1)",
+                borderColor: "rgba(13, 160, 179, 1)",
+                data: {{asig | safe}}
+              },{
+              label: 'Personal disponible',
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(255, 165, 0, 1)",
+                borderColor: "rgba(255, 165, 0, 1)",
+                data: {{disp | safe}}
+              }]
+            },
+            options: {
+              legend: {display: false},
+              scales: {
+                yAxes: [{ticks: {min: 6, max:16}}],
+              }
+            }
+          });
 
     </script>
 </body>

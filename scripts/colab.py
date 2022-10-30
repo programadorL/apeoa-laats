@@ -11,9 +11,9 @@ driver= '{ODBC Driver 17 for SQL Server}'
 
 def colab(no_correlativo1, mes):
 
-    print(type(no_correlativo1))
-    print(type(mes))
-    print(no_correlativo1, mes)
+    #print(type(no_correlativo1))
+    #print(type(mes))
+    #print(no_correlativo1, mes)
 
     try: 
         with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
@@ -279,7 +279,7 @@ def colab(no_correlativo1, mes):
                                 if (no_correlativo1 == no_correlativo2):
                                     pos_en = str(position_time_entry).replace(' ', 'T')
                                     pos_ex = str(position_time_exit).replace(' ', 'T')
-                                    print(agents[i], position_time_entry, position_time_exit)
+                                    #print(agents[i], position_time_entry, position_time_exit)
                                     tiempos.append([pos_en, pos_ex])
                                     agentes.append(agents[i])
 
@@ -294,24 +294,113 @@ def colab(no_correlativo1, mes):
 
     #personal asignado
     personal_lapse = 0 
-    personel = {'crew_chief':9, 'supervisores':4, 'operadores':10, 'agentes':46}
+    personel = {'crew_chief_a':4, 'crew_chief_b':5, 'supervisores':4, 'grupo_a':5, 'grupo_b':8, 'grupo_c':19, 'grupo_d':7, 'grupo_e':14}
+    personel_working = {'crew_chief_a':False, 'crew_chief_b':False, 'supervisores':False, 'grupo_a':False, 'grupo_b':False, 'grupo_c':False, 'grupo_d':False, 'grupo_e':False}
     for i in range(0, len(matriz_freq[0])):
         per_disp = 0
-        for o in range(0, 6):
+        for o in range(0, 7):
             personal_lapse = personal_lapse + matriz_freq[o][i]
         matriz_freq[7][i] = personal_lapse
-        if matriz_freq[0][i] > 0:
+        #
+        if i % 96 == 13: 
+            personel_working['crew_chief_a'] = True
+        elif i % 96 == 43:
+            personel_working['crew_chief_a'] = False
+
+        #turno 1 CC b
+        if i % 96 == 42: 
+            personel_working['crew_chief_b'] = True
+        elif i % 96 == 64:
+            personel_working['crew_chief_b'] = False
+        
+        #turno 2 CC B
+        if i % 96 == 72: 
+            personel_working['crew_chief_b'] = True
+        elif i % 96 == 2:
+            personel_working['crew_chief_b'] = False
+
+        #turno 1 grupo A
+        if i % 96 == 92: 
+            personel_working['grupo_a'] = True
+        elif i % 96 == 2:
+            personel_working['grupo_a'] = False    
+
+        #turno 1 grupo B
+        if i % 96 == 36: 
+            personel_working['grupo_b'] = True
+        elif i % 96 == 58:
+            personel_working['grupo_b'] = False   
+
+        #turno 1 grupo C
+        if i % 96 == 16: 
+            personel_working['grupo_c'] = True
+        elif i % 96 == 56:
+            personel_working['grupo_c'] = False   
+        
+        #turno 1 grupo D
+        if i % 96 == 36: 
+            personel_working['grupo_d'] = True
+        elif i % 96 == 58:
+            personel_working['grupo_d'] = False  
+
+        #turno 2 grupo D
+        if i % 96 == 36: 
+            personel_working['grupo_d'] = True
+        elif i % 96 == 58:
+            personel_working['grupo_d'] = False  
+
+        #turno 1 grupo E
+        if i % 96 == 58: 
+            personel_working['grupo_d'] = True
+        elif i % 96 == 2:
+            personel_working['grupo_d'] = False  
+        
+        if personel_working['crew_chief_a']:
+            per_disp = per_disp + personel['crew_chief_a']
+        if personel_working['crew_chief_b']:
+            per_disp = per_disp + personel['crew_chief_b']
+        if personel_working['grupo_a']:
+            per_disp = per_disp + personel['grupo_a']
+        if personel_working['grupo_b']:
+            per_disp = per_disp + personel['grupo_b']
+        if personel_working['grupo_c']:
+            per_disp = per_disp + personel['grupo_c']
+        if personel_working['grupo_d']:
+            per_disp = per_disp + personel['grupo_d']
+        if personel_working['grupo_e']:
+            per_disp = per_disp + personel['grupo_e']
+        #
+        
+        
+        '''if matriz_freq[0][i] > 0:
             per_disp = per_disp + personel['crew_chief']
         if matriz_freq[1][i] > 0:
             per_disp = per_disp + personel['operadores']
         if matriz_freq[2][i] > 0 or matriz_freq[3][i] > 0 or matriz_freq[4][i] > 0 or matriz_freq[5][i] > 0 or matriz_freq[6][i] > 0:
-            per_disp = per_disp + personel['agentes']
+            per_disp = per_disp + personel['agentes']'''
 
         matriz_freq[8][i] = per_disp
 
         matriz_freq[9][i] = matriz_freq[8][i] - matriz_freq[7][i]
         personal_lapse = 0
 
-    #for row in matriz_freq:
-        #print(row)
-    return tiempos, agentes, matriz_freq
+        time_titles = ['Horas']
+
+    for i in range(0, 24):
+        for o in range(0, 4):
+            if o == 0:
+                minutes = '00'
+            elif o == 1:
+                minutes = '15'
+            elif o == 2:
+                minutes = '30'
+            elif o == 3:
+                minutes = '45'
+            if i < 10:
+                hour = '0'+str(i)
+            else:
+                hour = str(i)
+        
+            time_titles.append(hour+':'+minutes)
+
+    return tiempos, agentes, matriz_freq, time_titles

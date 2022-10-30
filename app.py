@@ -26,7 +26,7 @@ def login():
                 return redirect(url_for('flights'))
             else:
                 return str(auth)
-        elif cform == "reset":
+        elif form == "reset":
             email = request.form["email"]
             old_pin = request.form["old-password"]
             new_pin = request.form["new-password"]
@@ -100,29 +100,28 @@ def dashboard():
         flights = get_flights(day, month, year, scripts.env.DEPARTMENT)
         flights_tags, flights_periods = get_flights_gantt_data(flights)
 
-        #parameter = get_flight_personel_parameters_pxs(operation_type, aircraft_id)
-        #parameter_id = str(parameter[0][0])
-       # et_parameter = get_flight_et_personel_parameters_pxs(str(int(parameter_id)-1))
-
-        start_time = flight[0][7]
-        end_time = flight[0][8]
-        
-        #times_parameter = get_flight_times_personel_pxs(parameter_id)
+        start_time = (flight[0][2]- 1)*24*4
+        end_time = (flight[0][2])*24*4
+        print(start_time, end_time)
 
         flight_info = flight[0]
 
         staff_config = get_configuracion_personal_pxs(no_correlative)
-        #print(times_parameter)
-        #print(et_parameter)
-        #print(flights_tags, flights_periods)
-        tiempos, agents, matrix_freq = colab(int(no_correlative), int(flight[0][3]))
+
+        tiempos, agents, matrix_freq, time_titles = colab(int(no_correlative), int(flight[0][3]))
 
         asig_per = matrix_freq[7]
         req_per = matrix_freq[8]
         titles = True
         countNumb = 0
+
+        freq = matrix_freq[9][start_time:end_time]
+        asig = matrix_freq[7][start_time:end_time]
+        disp = matrix_freq[8][start_time:end_time]
+        hours = time_titles[1:]
+
         matrix_titles = ['Crew chiefs', 'Operadores', 'Agentes de Rampa', 'Agentes de mostrador', 'Agentes de fajas', 'Agentes de rayos x', 'Agentes de limpieza', 'Personal asignado', 'Personal disponible', 'Diff. Personal']
-        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, flight_info=flight_info, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=agents, personel_times=tiempos, staff_config=staff_config, matrix_freq=matrix_freq, matrix_titles=matrix_titles, titles=titles, countNumb=countNumb)
+        return render_template('dashboard.html', department_color=scripts.env.DEPARTMENT_COLOR, department=scripts.env.DEPARTMENT, flight_info=flight_info, date=req_date, current_date=req_date, flights_tags=flights_tags, flights_periods=flights_periods, min_time=min_time, positions=agents, personel_times=tiempos, staff_config=staff_config, matrix_freq=matrix_freq, matrix_titles=matrix_titles, titles=titles, countNumb=countNumb, start_time=start_time, end_time=end_time, time_titles=time_titles, freq=freq, asig=asig, disp=disp, hours=hours)
         '''if request.method == 'POST':
             req_date = request.form["date-selector"]
             operator_id = request.form["operator-selector"]
