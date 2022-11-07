@@ -36,7 +36,7 @@
     z-index: 1;
     background: #333533;
     max-width: 1280px;
-    height: 480px;
+    height: 600px;
     margin: 0 auto 10px;
     padding: 45px;
     text-align: center;
@@ -55,7 +55,7 @@ table {
     text-align: center;
     outline: 0;
     color: #9d9b9b;
-    background: #2d2c2c; /*#333533*/
+    background: #333533; /*#333533*/
     width: 100%;
     border: 0;
     margin: 15px 0 15px;
@@ -77,6 +77,49 @@ th, td{
     color: #9d9b9b;
     margin: 0;
 }
+
+.save-button {
+  font-family: "Roboto", sans-serif;
+  text-transfilter-section: uppercase;
+  outline: 0;
+  background: #1ec20f;
+  border: 0;
+  padding: 12px;
+  color: #FFFFFF;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.save-button:hover,.filter-section button:active,.filter-section button:focus {
+  background: #25e014;
+}
+
+.cancel-button {
+  font-family: "Roboto", sans-serif;
+  text-transfilter-section: uppercase;
+  outline: 0;
+  background: #e0411d;
+  border: 0;
+  padding: 12px;
+  color: #FFFFFF;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.cancel-button:hover,.filter-section button:active,.filter-section button:focus {
+  background: #fa552f;
+}
+
+h1 {
+  color: #9d9b9b;
+}
+
+form {
+  align-items: right;
+}
+
 
 input[type="number"] {
     height: 55px;

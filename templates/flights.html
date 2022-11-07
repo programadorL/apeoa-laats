@@ -22,10 +22,9 @@
     <div class="dashboard-page">
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <a href="/flights">Vuelos</a>
+            <a href="/parameters">Configurar parametros</a>
+            <a href="#">Salir</a>
         </div>
         <span style="position:sticky; font-size:30px;cursor:pointer;" onclick="openNav()">&#9776; Menu</span>
         <div class="filter-section">
@@ -77,7 +76,8 @@
                                 <h2>ETA: {{flight[5]}}</h2>
                                 <h2>ETD: {{flight[6]}}</h2>                       
                                 <form class="flight-form" method="POST" action="/process_flight_data/{{flight[9]}}">
-                                    <button>Ir al vuelo</button>
+                                    <button class="flight-button">Ir al vuelo</button>
+                                    <button class="config-button">Configurar personal</button>
                                 </form>
                             </div>
                         </td>

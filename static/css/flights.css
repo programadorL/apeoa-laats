@@ -54,6 +54,7 @@ table {
   .filter-section button:hover,.filter-section button:active,.filter-section button:focus {
     background: #5b4af2;
   }
+
   
   .filter-section .hour-selector{
     width: 110px;
@@ -95,10 +96,45 @@ table {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);   
   }
 
-.flight-form {
+  .flight-button {
+    font-family: "Roboto", sans-serif;
+    text-transfilter-section: uppercase;
+    outline: 0;
+    background: #00126B;
+    border: 0;
+    padding: 12px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .flight-button:hover,.flight-button:active,.flight-button:focus {
+    background: #5b4af2;
+  }
+
+  .config-button {
+    font-family: "Roboto", sans-serif;
+    text-transfilter-section: uppercase;
+    outline: 0;
+    background: #dfbc0e;
+    border: 0;
+    padding: 12px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .config-button:hover,.filter-section .config-buttonbutton:active, .config-buttonbutton:focus {
+    background: #dfbc0e;;
+  }
+
+.flight-form  {
     text-align: center;
 }
-.flight-form button {
+
+.flight-form .flight-button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -112,8 +148,26 @@ table {
     transition: all 0.3 ease;
     cursor: pointer;
   }
-  .flight-form button:hover,.form button:active,.form button:focus {
+  .flight-form .flight-button:hover,.form .flight-button:active,.form .flight-button:focus {
     background: #364281;
+  }
+
+  .flight-form .config-button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #dfbc0e;;
+    width: 320px;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .flight-form .config-button:hover,.form .config-button:active,.form .config-button:focus {
+    background: #f6d012;
   }
 
   .sidenav {

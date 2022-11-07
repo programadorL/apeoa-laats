@@ -302,9 +302,14 @@ def colab(no_correlativo1, mes):
             personal_lapse = personal_lapse + matriz_freq[o][i]
         matriz_freq[7][i] = personal_lapse
         #
-        if i % 96 == 13: 
+        if i % 96 == 0: 
             personel_working['crew_chief_a'] = True
-        elif i % 96 == 43:
+        elif i % 96 == 26:
+            personel_working['crew_chief_a'] = False
+        
+        if i % 96 == 90: 
+            personel_working['crew_chief_a'] = True
+        elif i % 96 == 96:
             personel_working['crew_chief_a'] = False
 
         #turno 1 CC b
