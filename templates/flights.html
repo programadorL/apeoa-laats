@@ -32,6 +32,11 @@
                 <input class="date-selector" name="date-selector" type="date" value="{{date}}">
                 <select class="operator-selector" name="operator-selector" placeholder="Operador">
                     <option value="0" >Operador</option>
+                    <option value="TRANSITO">AMERICAN</option>
+                    <option value="DESPACHO">AEROMEXICO</option>
+                    <option value="RECEPCION">AEROMAR</option>
+                    <option value="PERNOCTA">COPA</option>
+                    <option value="PERNOCTA">JET BLUE</option>  
                     {% for operator in operators_list %}
                         <option value="{{operator[0]}}">{{operator[1]}}</option>
                     {% endfor %}
