@@ -1,6 +1,12 @@
 '''
     @Author: Esteban Cabrera.
     @Version: 1.0.0.
+    @See: Flask framework.
+    @See: /scripts/env.py
+    @See: /scripts/data_handler.py
+    @See: /scripts/pfm.py
+
+    @Relevant: https://flask.palletsprojects.com/en/2.2.x/
 
     Este script contiene métodos creados para enrutar las pantallas de la App y enviarles los parametros
     necesarios para renderizar la data necesaria en cada una de ellas. Importa las librerias necesarias
@@ -65,6 +71,42 @@ def login():
 
 @app.route('/fligths', methods=['GET', 'POST'])
 def flights():
+    '''
+        Este metodo se utiliza para enrutar la aplicacion a la pagina (flights.html) de los vuelos diarios 
+        (posterior a la autenticacionn del usuario). Carga por default los valores de la fecha actual para 
+        obtener un dataset con los vuelos que coincidan con la fecha y el departamento al que el usuario 
+        pertenece.
+        En el caso que exista una peticion POST, se recopilan los datos que el usuario ha establecido para la
+        filtracion de los vuelos en el elemento 'filter-section' del archivo /templates/dashboard.html y se 
+        obtiene un nuevo dataset de vuelos.
+        Tambien se toman en cuenta las variables de ambiente establecidas para la configuracion
+        de color definido para el departamento al que pertenece el usuario. 
+        Adicionalmente, se hace un llamado a un metodo que genera dos datasets que contienen la informacion
+        necesaria para renderizar un diagrama de gantt con los vuelos del dia especificado.
+
+        Ver en /templates/:
+            flights.html
+        
+        Ver en /scripts/env.py
+            DEPARTMENT_COLOR
+            DEPARTMENT
+        
+        Ver en /scripts/api.py
+            get_flights(<args>)
+
+        Ver en /scripts/data_handler.py
+            get_flights_gantt_data(<args>)
+        
+        Salida:
+            flights.html -> html
+            scripts.env.DEPARTMENT_COLOR -> string 
+            scripts.env.DEPARTMENT -> string
+            req_date -> string
+            selected_flights -> Array
+            flights_tags -> Array
+            flights_periods -> Array 
+            min_time -> string
+    '''
     if request.method == 'POST':
         req_date = request.form["date-selector"]
         year = req_date[0:4] 
@@ -90,6 +132,56 @@ def set_flight_data(no_correlative):
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    '''
+        Este metodo se utiliza para enrutar la aplicacion a la pagina (dashboard.html) de los vuelos diarios 
+        (posterior a la autenticacionn del usuario). Carga por default los valores de la fecha actual para 
+        obtener un dataset con los vuelos que coincidan con la fecha y el departamento al que el usuario 
+        pertenece.
+        En el caso que exista una peticion POST, se recopilan los datos que el usuario ha establecido para la
+        filtracion de los vuelos en el elemento 'filter-section' del archivo /templates/dashboard.html y se 
+        obtiene un nuevo dataset.
+        Tambien se toman en cuenta las variables de ambiente establecidas para la configuracion
+        de color definido para el departamento al que pertenece el usuario. 
+        Adicionalmente, se hace un llamado a un metodo que genera dos datasets que contienen la informacion
+        necesaria para renderizar un diagrama de gantt con los vuelos del dia especificado.
+
+        Ver en /templates/:
+            dashboard.html
+        
+        Ver en /scripts/env.py
+            DEPARTMENT_COLOR
+            DEPARTMENT
+        
+        Ver en /scripts/api.py
+            get_flights(<args>)
+
+        Ver en /scripts/data_handler.py
+            get_flights_gantt_data(<args>)
+        
+        Salida:
+            dashboard.html -> html
+            scripts.env.DEPARTMENT_COLOR -> string
+            scripts.env.DEPARTMENT -> string
+            flight_info -> Array
+            req_date -> string
+            flights_tags -> Array
+            flights_periods -> Array
+            min_time -> string
+            agents -> Array
+            tiempos -> Array
+            staff_config -> Array
+            matrix_freq -> Array
+            matrix_titles -> Array
+            titles -> Array
+            countNumb -> int
+            start_time -> string
+            end_time -> string
+            time_titles -> Array
+            freq -> Array
+            asig -> Array
+            disp -> Array
+            hours -> Array
+    '''
     if scripts.env.LOGGED_IN:
         args = request.args
         no_correlative = args.get("no_correlative")
@@ -152,6 +244,20 @@ def dashboard():
 
 @app.route('/parameters')
 def parameters():
+    '''
+        Este metodo se utiliza para enrutar la aplicacion a la pagina (parameters.html) en la cual se
+        realizan los cambios manuales de la configuracion del personal para un vuelo en especifico.
+
+        Ver en /templates/:
+            dashboard.html
+        
+        Ver en /scripts/env.py
+            DEPARTMENT_COLOR
+            DEPARTMENT
+        
+        Salida:
+            parameters.html -> html
+    '''
     if scripts.env.LOGGED_IN:
         if scripts.env.DEPARTMENT == 'PXS':
             return render_template('parameters.html', department_color=scripts.env.DEPARTMENT_COLOR, personel_config = scripts.env.PXS_PERSONEL_CONFIG)
@@ -159,5 +265,14 @@ def parameters():
     else:
         return redirect(url_for('index'))
 
+'''
+    Inicializacion de la aplicacion.
+
+    *                                                                                                        *
+        app.run() tiene como parametro debug=True. Este debe quitarse al momento de poner el proyecto en
+        produccion, ya que al tenerlo activado, los errores de ejecucion se veran reflejados en consola o en
+        el navegador.
+    *                                                                                                        *
+'''
 if __name__ == "__main__":
     app.run(debug=True)     
