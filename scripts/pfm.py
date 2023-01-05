@@ -1,3 +1,15 @@
+'''
+    * Title: pmf -> PERSONEL MATRIX FREQUENCIES *
+    @Author: Esteban Cabrera.
+    @Version: 1.0.0.
+    @See: app.py.
+    @See: /templates/dashboard.html.
+
+    Este script contiene un metodo dedicado a la creacion de la matriz de frecuencia de personal, la cual
+    se utiliza para la construccion de la tabla de frecuencia de personal y la grafica de frecuencia de
+    frecuencia de personal en el archivo /templates/dashboard.html.
+'''
+
 import pyodbc
 from datetime import datetime
 from datetime import timedelta
@@ -10,6 +22,31 @@ password = 'Fn_1_5Laats'
 driver= '{ODBC Driver 17 for SQL Server}'
 
 def create_pfm(no_correlativo1, mes):
+    '''
+        Este metodo se utiliza para la creacion de la matriz de frecuencia de personal. Esta matriz contiene
+        un dataset de la configuracion de personal asignada o configurada manualmente de cada operacion en 
+        el mes indicado por el usuario. Este dataset se utiliza posteriormente para construir la tabla y grafica
+        de frecuencia de personal en la pagina /templates/dashboard.html. Adicionalmente, se generan datasets
+        que contienen los titulos de la tabla y grafica mencionada anteriormente.
+
+        Parametros:
+            no_correlativo1 -> int
+            mes -> int
+
+        Ver en api.py:
+            dashboard()
+        
+        Ver en /templates/dashboard.html
+            matrix_freq
+            freq-personel
+            freqChart
+ 
+        Salida:
+            tiempos -> Array 
+            agentes -> Array
+            matriz_freq -> Array
+            time_titles -> Array
+    '''
     try: 
         with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
             with conn.cursor() as cursor:
@@ -73,6 +110,7 @@ def create_pfm(no_correlativo1, mes):
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)
 
+    #Join de las tablas aeronaves y operadores.
     join_aeronaves_operadores = []
     for aeronave in aeronaves:
         for operador in operadores:
@@ -80,7 +118,8 @@ def create_pfm(no_correlativo1, mes):
                 join_dict = {'id_aeronave': aeronave[0], 'tipo_aeronave': aeronave[1], 'operador': operador[1]}
                 join_aeronaves_operadores.append(join_dict)
                 break
-
+    
+    #Join de las tablas itinearios, aeronaves y operadores.
     join_itinerarios_aeronaves_operadores = []
     for itinerario in itinerarios:
         for join in join_aeronaves_operadores:
@@ -101,7 +140,7 @@ def create_pfm(no_correlativo1, mes):
                 join_itinerarios_aeronaves_operadores.append(join_dict)
                 break
         
-
+    #Calculo de lapsos de 15 minutos en un mes,
     dias = 30
     horas = dias * 24
     lapsos = horas * 4 + 1
@@ -109,13 +148,19 @@ def create_pfm(no_correlativo1, mes):
     cantidad_posiciones = 7
     eje_y = cantidad_posiciones + 3
 
+    #Creacion de la matriz de frecuencia de personal con valores 0.
     matriz_freq =  [[0 for x in range(lapsos)] for y in range(eje_y)] 
 
+    #Declaracion de los tiempos ET NO indicados en los itinerarios pero si por el gerente del departamento 
+    #de PXS.
     eta_despacho = '01:15:00'
     eta_transito = '00:00:10'
     etd_pernocta = '01:30:00'
 
+    #Inicializacion del arreglo para guardar un dataset de vuelos.
     vuelos = []
+
+    #Recorrido por todos los itinerarios del mes indicado por el usuario.
     for itinerario in itinerarios:
         for config in configuracion_personal_vuelos_pxs:
             if (itinerario[0] == config[0]):
@@ -133,8 +178,11 @@ def create_pfm(no_correlativo1, mes):
                 vuelo = {'no_correlativo': no_correlativo, 'tipo_operacion': tipo_operacion, 'eta': eta, 'etd': etd, 'diff': diff}
                 vuelos.append(vuelo)
                 break
-
+    
+    #Inicializacion del arreglo para almacenar un dataset de los lapsos de 15 minutos.
     data_lapsos = []
+
+    #Recorrido de los vuelos.
     for vuelo in vuelos:
         no_correlativo = vuelo['no_correlativo']
         eta_horas = int(str(vuelo['eta'])[11:13])
@@ -175,7 +223,10 @@ def create_pfm(no_correlativo1, mes):
     lapsos = data_lapsos
     data = join_itinerarios_aeronaves_operadores
 
+    #Inicializacion del arreglo que contendra un dataset con informacion de los vuelos.
     info_vuelos = []
+
+    #Construccion del dataset que contendra la informacion de los vuelos.
     for lapso in lapsos:
         for dato in data:
             if (lapso['no_correlativo'] == dato['no_correlativo']):
@@ -183,8 +234,14 @@ def create_pfm(no_correlativo1, mes):
                 info_vuelos.append(vuelo)
                 break
     
+    #Inicializacion del arreglo que contiene los titulos definidos para cada tipo de agente del departamento
+    #de PXS.
     agents = ["CF","O", "AR", "AM", "AF", "ARX", "AL"]
+
+    #Inicializacion del arreglo que contendra la cantidad de personal asignada para cada posicion en el orden
+    #del arreglo 'agents'.
     agentes = []
+
     tiempos = []
     for vuelo in info_vuelos:
         no_correlativo2 = vuelo['no_correlativo']
@@ -281,7 +338,7 @@ def create_pfm(no_correlativo1, mes):
                                 for o in range(position_lapse_start, position_lapse_end):
                                     matriz_freq[i][o] = matriz_freq[i][o] + parametro[i+3]
 
-    #personal asignado
+    #Almacenamiento del personal asignado para cada operacion que se encuentra en el dataset de vuelos.
     personal_lapse = 0 
     personel = {'crew_chief_a':4, 'crew_chief_b':5, 'supervisores':4, 'grupo_a':5, 'grupo_b':8, 'grupo_c':19, 'grupo_d':7, 'grupo_e':14}
     personel_working = {'crew_chief_a':False, 'crew_chief_b':False, 'supervisores':False, 'grupo_a':False, 'grupo_b':False, 'grupo_c':False, 'grupo_d':False, 'grupo_e':False}
@@ -372,6 +429,8 @@ def create_pfm(no_correlativo1, mes):
 
         time_titles = ['Horas']
 
+    #Construccion de los titulos horizontales de la tabla de frecuencia de personal y la grafica de frecuencia
+    #de personal.
     for i in range(0, 24):
         for o in range(0, 4):
             if o == 0:
