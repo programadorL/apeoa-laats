@@ -1,4 +1,23 @@
 def get_flights_gantt_data(flights):
+    '''
+        Este metodo se utiliza para recolectar la informacion necesaria para generar diagramas de gantt
+        de todos los vuelos de un dia especifico. Recibe un dataset de los vuelos previamente recolectados.
+        Con el dataset, genera un arreglo llamado 'flights_tags' en donde se almacena la informacion de cada
+        operador y el numero de vuelo anexados con un '-'. Luego en otro arreglo llamado 'flights_periods',
+        almacena pares ordenados de la fecha de inicio y fecha de finalizacion del vuelo en formato datetime
+        de javascript.
+
+        Parametros:
+            flights -> Array
+
+        Ver en app.py:
+            flights()
+        
+        Salida:
+            flights_tags (Array) ej. ['AMERICAN-356/431', ... , 'JETBLUE-541/541']
+            flights_periods (Array) ej. [['2023-01-01T00:00:00', '2023-01-01T00:10:00'], ... , ['2023-01-01T01:30:00', '2023-01-01T02:00:00']]
+            
+    '''
     flights_tags = []
     flights_periods = []
     if flights:
@@ -23,23 +42,6 @@ def get_flights_gantt_data(flights):
             time_period = [flight_starting_time, flight_ending_time]
             flights_periods.append(time_period)
     return flights_tags, flights_periods
-
-def process_personel_et(operation_type, start_time, end_time, times_parameter, et_parameter):
-    start_hour = int(start_time[0:2])
-    start_minutes = int(start_time[3:5])
-    start_time_minutes = start_hour*60 + start_minutes
-
-    end_hour = int(end_time[0:2])
-    end_minutes = int(end_time[3:5])
-    end_time_minutes = end_hour*60 + end_minutes
-
-    date_times_minutes = []
-    if (operation_type == 'DESPACHO'):
-        for i in range(0, len(times_parameter)):
-            if et_parameter[i + 1] == 'ETA':
-                date_times_minutes.append(times_parameter[i + 1] + start_time_minutes)
-            if et_parameter[i + 1] == 'ETD':
-                date_times_minutes.append(times_parameter[i + 1] + end_time_minutes)
             
 
 
