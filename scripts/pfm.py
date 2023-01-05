@@ -9,12 +9,7 @@ username = 'AdminLaats'
 password = 'Fn_1_5Laats' 
 driver= '{ODBC Driver 17 for SQL Server}'
 
-def colab(no_correlativo1, mes):
-
-    #print(type(no_correlativo1))
-    #print(type(mes))
-    #print(no_correlativo1, mes)
-
+def create_pfm(no_correlativo1, mes):
     try: 
         with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
             with conn.cursor() as cursor:
@@ -286,12 +281,6 @@ def colab(no_correlativo1, mes):
                                 for o in range(position_lapse_start, position_lapse_end):
                                     matriz_freq[i][o] = matriz_freq[i][o] + parametro[i+3]
 
-                        
-                        #eta_lapses = math.ceil(eta_total_minutes/15)
-                        #etd_lapses = math.ceil(etd_total_minutes/15)
-
-                        #print(eta_lapses, etd_lapses)
-
     #personal asignado
     personal_lapse = 0 
     personel = {'crew_chief_a':4, 'crew_chief_b':5, 'supervisores':4, 'grupo_a':5, 'grupo_b':8, 'grupo_c':19, 'grupo_d':7, 'grupo_e':14}
@@ -375,14 +364,6 @@ def colab(no_correlativo1, mes):
         if personel_working['grupo_e']:
             per_disp = per_disp + personel['grupo_e']
         #
-        
-        
-        '''if matriz_freq[0][i] > 0:
-            per_disp = per_disp + personel['crew_chief']
-        if matriz_freq[1][i] > 0:
-            per_disp = per_disp + personel['operadores']
-        if matriz_freq[2][i] > 0 or matriz_freq[3][i] > 0 or matriz_freq[4][i] > 0 or matriz_freq[5][i] > 0 or matriz_freq[6][i] > 0:
-            per_disp = per_disp + personel['agentes']'''
 
         matriz_freq[8][i] = per_disp
 
