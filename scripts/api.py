@@ -2,6 +2,7 @@
     @Author: Esteban Cabrera.
     @Version: 1.0.0.
     @See: query_builder.py.
+    @Relevant: https://learn.microsoft.com/es-es/sql/connect/python/pyodbc/step-3-proof-of-concept-connecting-to-sql-using-pyodbc?view=sql-server-ver16
 
     Este script contiene métodos creados para generar los queries a ejecutar en la base de datos
     para obtener la información deseada a base de parámetros establecidos.
@@ -10,7 +11,7 @@
 from scripts.query_builder import *
 import pyodbc
 import scripts.env
-from scripts.env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME, USER_ID, DEPARTMENT
+from scripts.env import DATABASE, DRIVER, PASSWORD, PORT, SERVER, USERNAME
 
 def user_auth(email, password):
     '''

@@ -141,23 +141,110 @@ def get_operator_id_query(operator_name):
     '''
     return "SELECT id_operador FROM operadores WHERE nombre_operador='"+operator_name+"';"
 
-def get_flights_query2(operator_id):
-    return "SELECT no_vuelo FROM vuelos WHERE operador='"+operator_id+"' ORDER BY no_vuelo ASC;"
-
 def get_specific_flight_query(day, month, year, department, operation_type, operator, aircraft):
+    '''
+        Este metodo se utiliza para generar el query que obtiene un dataset de un itinerario de vuelo 
+        especifico basandose en el dia, mes, año de realizacion, departamento al que pertenece, 
+        tipo de operacion, operador y tipo de aeronave.
+
+        Parametros:
+            day -> int
+            month -> int
+            year -> int 
+            department -> string
+            operation_type -> string
+            operator -> string
+            aircraft_type -> string
+
+        Ver en api.py:
+            get_specific_flight(<arg>)
+        
+        Salida (string):
+            query ej. "SELECT TOP (1) * FROM itinerarios WHERE dia=..."
+    '''
     return "SELECT TOP (1) * FROM itinerarios WHERE dia="+day+" And mes="+month+" And year="+year+" And departamento='"+department+"' And tipo_operacion='"+operation_type+"' And operador='"+operator+"' And tipo_aeronave='"+aircraft+"';"
 
 def get_flight_personel_parameters_pxs_query(operation_type, aircraft):
+    '''
+        Este metodo se utiliza para generar el query que obtiene un dataset de los parametros de 
+        personal establecidos para un tipo de vuelo especifico.
+
+        Parametros:
+            operation_type -> string
+            aircraft_id -> int
+
+        Ver en query_builder.py:
+            get_flight_personel_parameters_pxs(<arg>)
+        
+        Salida (string):
+            query ej. "SELECT * FROM parametros_personal_pxs WHERE tipo_operacion=..."
+    '''
     return "SELECT * FROM parametros_personal_pxs WHERE tipo_operacion='"+operation_type+"' And aeronave='"+aircraft+"';"
 
 def get_flight_personel_configuration_pxs_query(no_correlative):
+    '''
+        Este metodo se utiliza para generar el query que obtiene un dataset de la configuracion de 
+        personal automatizada para un vuelo especifico.
+
+        Parametros:
+            no_correlative -> int
+
+        Ver en api.py:
+            get_flight_personel_configuration_pxs(<arg>)
+        
+        Salida (string):
+            query ej. "SELECT * FROM configuracion_personal_vuelos_pxs WHERE no_correlativo=..."
+    '''
     return "SELECT * FROM configuracion_personal_vuelos_pxs WHERE no_correlativo="+no_correlative+";"
 
 def get_flight_et_personel_parameters_pxs_query(parameter_id):
+    '''
+        Este metodo se utiliza para generar el query que obtiene un dataset de los parametros 
+        (banderas) de ET (estimated time) basados en el identificador de un parametro especifico 
+        *relacionado a la tabla 'parametros_personal_pxs*.
+
+        Parametros:
+            parameter_id -> int
+
+        Ver en api.py:
+            get_flight_et_personel_parameters_pxs(<arg>)
+        
+        Salida (string):
+            query ej. "SELECT * FROM et_parametros_personal_pxs WHERE id_parametro=..."
+    '''
     return "SELECT * FROM et_parametros_personal_pxs WHERE id_parametro="+parameter_id+";"
 
 def get_flight_times_personel_pxs_query(parameter_id):
+    '''
+        Este metodo se utiliza para generar un query que obtiene un dataset de los parametros de los 
+        tiempos (minutos), antes o despues del tiempo estimado (ETA o ETD) en los que el personal 
+        debe comenzar labores, basados en el identificador unico de un parametro especifico 
+        *relacionado a la tabla 'parametros_personal_pxs*.
+
+        Parametros:
+            parameter_id -> int
+
+        Ver en api.py:
+            get_flight_times_personel_pxs(<arg>)
+        
+        Salida (string):
+            query ej. "SELECT * FROM tiempos_personal_pxs WHERE id_parametro=..."
+    '''
     return "SELECT * FROM tiempos_personal_pxs WHERE id_parametro="+parameter_id+";"
 
 def get_configuracion_personal_pxs_query(no_correlative):
+    '''
+        Este metodo se utiliza para generar un query que obtiene un dataset de la configuracion de personal 
+        para un itinerario de vuelo especifico basado en el numero de correlativo. 
+        *relacionado a la tabla 'itinerarios*.
+
+        Parametros:
+            no_correlative -> int
+
+        Ver en api.py:
+            get_configuracion_personal_pxs_query(<arg>)
+        
+        Salida (string):
+            query ej. "SELECT * FROM configuracion_personal_vuelos_pxs WHERE no_correlativo=..."
+    '''
     return "SELECT * FROM configuracion_personal_vuelos_pxs WHERE no_correlativo="+no_correlative+";"
